@@ -16,7 +16,18 @@ struct EntryListView: View {
     ]
     
     var body: some View {
-        Text( /*@START_MENU_TOKEN@*/"Hello, World!" /*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(entries, id: \.id) { entry in
+                HStack {
+                    Text(entry.title)
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Text("\(entry.calories) kcal")
+                        Text("\(entry.formattedDate)")
+                    }
+                }
+            }
+        }
     }
 }
 
