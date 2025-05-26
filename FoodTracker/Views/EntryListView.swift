@@ -14,20 +14,34 @@ struct EntryListView: View {
         Entry(title: "Rührtofu", date: Date(), calories: 435),
         Entry(title: "Pasta al Pesto", date: Date(), calories: 236),
     ]
-    
+
     var body: some View {
         List {
             ForEach(entries, id: \.id) { entry in
                 HStack {
-                    Text(entry.title)
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Text("\(entry.calories) kcal")
+                    VStack(alignment: .leading) {
+                        Text(entry.title)
+                            .font(Fonts.entryTitle)
+                        Spacer()
                         Text("\(entry.formattedDate)")
+                            .font(Fonts.entryDate)
                     }
+                    Spacer()
+                    VStack {
+                        Text("\(entry.calories)")
+                            .font(Fonts.entryCalories)
+                        Text("kcal")
+                            .font(Fonts.entryCaloriesLabel)
+                    }
+                    .foregroundColor(Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255))
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 99 / 255, green: 105 / 255, blue: 64 / 255)))
                 }
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)))
             }
         }
+        .listStyle(.plain)
     }
 }
 
