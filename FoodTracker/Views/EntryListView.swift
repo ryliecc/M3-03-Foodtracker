@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EntryListView: View {
-    var entries: [Entry] = [
+    @State var entries: [Entry] = [
         Entry(title: "Frühlingsrolle", date: Date(), calories: 154),
         Entry(title: "Veganer Chicken Burger", date: Date(), calories: 473),
         Entry(title: "Rührtofu", date: Date(), calories: 435),
@@ -40,10 +40,17 @@ struct EntryListView: View {
                 .padding()
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)))
             }
+            .onDelete(perform: delete)
         }
         .listStyle(.plain)
     }
+    
+    func delete(at offsets: IndexSet) {
+            entries.remove(atOffsets: offsets)
+        }
 }
+
+
 
 #Preview {
     EntryListView()
