@@ -9,48 +9,94 @@ import SwiftUI
 
 struct EntryListView: View {
     @State var entries: [Entry] = [
-        Entry(title: "Frühlingsrolle", date: Date(), calories: 154),
-        Entry(title: "Veganer Chicken Burger", date: Date(), calories: 473),
-        Entry(title: "Rührtofu", date: Date(), calories: 435),
-        Entry(title: "Pasta al Pesto", date: Date(), calories: 236),
+        Entry(
+            title: "Frühlingsrolle",
+            date: Date(),
+            calories: 154,
+            type: .snack
+        ),
+        Entry(
+            title: "Veganer Chicken Burger",
+            date: Date(),
+            calories: 473,
+            type: .meal
+        ),
+        Entry(title: "Rührtofu", date: Date(), calories: 435, type: .meal),
+        Entry(
+            title: "Pasta al Pesto",
+            date: Date(),
+            calories: 236,
+            type: .meal
+        ),
+        Entry(title: "Club Mate", date: Date(), calories: 140, type: .drink),
+        Entry(title: "Laugenbrezel", date: Date(), calories: 269, type: .snack),
+        Entry(title: "Wasser", date: Date(), calories: 0, type: .drink),
+        Entry(
+            title: "Studentenfutter",
+            date: Date(),
+            calories: 462,
+            type: .snack
+        ),
     ]
+
+    var meals: [Entry] { entries.filter { $0.type == .meal } }
+    var drinks: [Entry] { entries.filter { $0.type == .drink } }
+    var snacks: [Entry] { entries.filter { $0.type == .snack } }
 
     var body: some View {
         List {
-            ForEach(entries, id: \.id) { entry in
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(entry.title)
-                            .font(Fonts.entryTitle)
-                        Spacer()
-                        Text("\(entry.formattedDate)")
-                            .font(Fonts.entryDate)
-                    }
-                    Spacer()
-                    VStack {
-                        Text("\(entry.calories)")
-                            .font(Fonts.entryCalories)
-                        Text("kcal")
-                            .font(Fonts.entryCaloriesLabel)
-                    }
-                    .foregroundColor(Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255))
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 99 / 255, green: 105 / 255, blue: 64 / 255)))
+            Section("Mahlzeiten".uppercased()) {
+                ForEach(meals, id: \.id) { entry in
+                    EntryListItem(entry: entry)
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                if let index = entries.firstIndex(where: {
+                                    $0.id == entry.id
+                                }) {
+                                    entries.remove(at: index)
+                                }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                 }
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)))
             }
-            .onDelete(perform: delete)
+            Section("Getränke".uppercased()) {
+                ForEach(drinks, id: \.id) { entry in
+                    EntryListItem(entry: entry)
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                if let index = entries.firstIndex(where: {
+                                    $0.id == entry.id
+                                }) {
+                                    entries.remove(at: index)
+                                }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
+                }
+            }
+            Section("Snacks".uppercased()) {
+                ForEach(snacks, id: \.id) { entry in
+                    EntryListItem(entry: entry)
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                if let index = entries.firstIndex(where: {
+                                    $0.id == entry.id
+                                }) {
+                                    entries.remove(at: index)
+                                }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
+                }
+            }
         }
         .listStyle(.plain)
     }
-    
-    func delete(at offsets: IndexSet) {
-            entries.remove(atOffsets: offsets)
-        }
 }
-
-
 
 #Preview {
     EntryListView()

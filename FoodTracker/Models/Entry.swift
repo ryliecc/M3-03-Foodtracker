@@ -12,6 +12,7 @@ struct Entry: Identifiable {
     var title: String
     var date: Date
     var calories: Int
+    var type: EntryType
     
     var formattedDate: String {
             let formatter = DateFormatter()
