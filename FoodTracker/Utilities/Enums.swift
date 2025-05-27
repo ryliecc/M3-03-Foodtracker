@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum EntryType: String {
+enum EntryType: String, CaseIterable {
     case meal = "Mahlzeit"
     case drink = "Getränk"
     case snack = "Snack"
