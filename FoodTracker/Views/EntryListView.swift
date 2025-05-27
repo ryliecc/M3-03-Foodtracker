@@ -45,54 +45,9 @@ struct EntryListView: View {
 
     var body: some View {
         List {
-            Section("Mahlzeiten".uppercased()) {
-                ForEach(meals, id: \.id) { entry in
-                    EntryListItem(entry: entry)
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                if let index = entries.firstIndex(where: {
-                                    $0.id == entry.id
-                                }) {
-                                    entries.remove(at: index)
-                                }
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
-                }
-            }
-            Section("Getränke".uppercased()) {
-                ForEach(drinks, id: \.id) { entry in
-                    EntryListItem(entry: entry)
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                if let index = entries.firstIndex(where: {
-                                    $0.id == entry.id
-                                }) {
-                                    entries.remove(at: index)
-                                }
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
-                }
-            }
-            Section("Snacks".uppercased()) {
-                ForEach(snacks, id: \.id) { entry in
-                    EntryListItem(entry: entry)
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                if let index = entries.firstIndex(where: {
-                                    $0.id == entry.id
-                                }) {
-                                    entries.remove(at: index)
-                                }
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
-                }
-            }
+            EntrySectionView(sectionTitle: "Mahlzeiten", sectionEntries: meals, allEntries: $entries)
+            EntrySectionView(sectionTitle: "Getränke", sectionEntries: drinks, allEntries: $entries)
+            EntrySectionView(sectionTitle: "Snacks", sectionEntries: snacks, allEntries: $entries)
         }
         .listStyle(.plain)
     }
