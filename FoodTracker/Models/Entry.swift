@@ -12,6 +12,9 @@ struct Entry: Identifiable {
     var title: String
     var date: Date
     var calories: Int
+    var carbohydrates: Double
+    var protein: Double
+    var fat: Double
     var type: EntryType
 
     var formattedDate: String {

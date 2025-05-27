@@ -62,6 +62,6 @@ struct EntryListItem: View {
 }
 
 #Preview {
-    var entry = Entry(title: "Titel", date: Date(), calories: 100, type: .meal)
+    var entry = Entry(title: "Titel", date: Date(), calories: 100, carbohydrates: 20, protein: 20, fat: 10, type: .meal)
     EntryListItem(entry: entry)
 }
