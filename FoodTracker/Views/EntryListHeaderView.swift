@@ -19,8 +19,11 @@ struct EntryListHeaderView: View {
                 alertIsVisible = true
             }
             .foregroundColor(.red)
-            .alert("Bist du sicher, dass du alle Einträge löschen willst?", isPresented: $alertIsVisible) {
-                Button("Abbrechen", role: .cancel) { }
+            .alert(
+                "Bist du sicher, dass du alle Einträge löschen willst?",
+                isPresented: $alertIsVisible
+            ) {
+                Button("Abbrechen", role: .cancel) {}
                 Button("Löschen", role: .destructive) {
                     entries.removeAll()
                 }

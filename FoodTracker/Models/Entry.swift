@@ -13,12 +13,12 @@ struct Entry: Identifiable {
     var date: Date
     var calories: Int
     var type: EntryType
-    
+
     var formattedDate: String {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .short
-            formatter.locale = Locale(identifier: "de_DE")
-            return formatter.string(from: date)
-        }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.locale = Locale(identifier: "de_DE")
+        return formatter.string(from: date)
+    }
 }
