@@ -55,7 +55,7 @@ struct EntryListItem: View {
         }
         .sheet(isPresented: $detailsVisible) {
             EntryDetailsView(entry: entry)
-                .presentationDetents([.medium])
+                .presentationDetents([.height(260)])
                 .presentationDragIndicator(.visible)
         }
     }

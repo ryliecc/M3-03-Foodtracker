@@ -72,6 +72,7 @@ struct EntryFormView: View {
                                 newEntryType = .meal
                                 sheetIsVisible = false
                             }
+                            .frame(maxWidth: .infinity)
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
