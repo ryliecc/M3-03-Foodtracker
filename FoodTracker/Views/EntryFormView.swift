@@ -67,6 +67,9 @@ struct EntryFormView: View {
                                     type: newEntryType
                                 )
                                 entries.append(newEntry)
+                                newEntryTitle = ""
+                                newEntryCalories = 0
+                                newEntryType = .meal
                                 sheetIsVisible = false
                             }
                             .padding()
