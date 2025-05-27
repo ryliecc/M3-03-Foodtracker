@@ -9,44 +9,55 @@ import SwiftUI
 
 struct EntryListItem: View {
     var entry: Entry
+
+    @State var detailsVisible: Bool = false
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(entry.title)
-                    .font(Fonts.entryTitle)
+        Button {
+            detailsVisible = true
+        } label: {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(entry.title)
+                        .font(Fonts.entryTitle)
+                    Spacer()
+                    Text("\(entry.formattedDate)")
+                        .font(Fonts.entryDate)
+                }
                 Spacer()
-                Text("\(entry.formattedDate)")
-                    .font(Fonts.entryDate)
+                VStack {
+                    Text("\(entry.calories)")
+                        .font(Fonts.entryCalories)
+                    Text("kcal")
+                        .font(Fonts.entryCaloriesLabel)
+                }
+                .frame(width: 48, height: 48)
+                .foregroundColor(
+                    Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
+                )
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 8).fill(
+                        Color(
+                            red: 99 / 255,
+                            green: 105 / 255,
+                            blue: 64 / 255
+                        )
+                    )
+                )
             }
-            Spacer()
-            VStack {
-                Text("\(entry.calories)")
-                    .font(Fonts.entryCalories)
-                Text("kcal")
-                    .font(Fonts.entryCaloriesLabel)
-            }
-            .frame(width: 48, height: 48)
-            .foregroundColor(
-                Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
-            )
-            .padding()
+            .frame(height: 72)
+            .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 8).fill(
-                    Color(
-                        red: 99 / 255,
-                        green: 105 / 255,
-                        blue: 64 / 255
-                    )
+                    Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
                 )
             )
         }
-        .frame(height: 72)
-        .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 8).fill(
-                Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
-            )
-        )
+        .sheet(isPresented: $detailsVisible) {
+            EntryDetailsView(entry: entry)
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 

@@ -79,6 +79,8 @@ struct EntryFormView: View {
                             )
                         }
                     }
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
                 }
             }
         }
