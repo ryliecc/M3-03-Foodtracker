@@ -1,5 +1,5 @@
 //
-//  EntrySectionView.swift
+//  EntryListHeaderView.swift
 //  FoodTracker
 //
 //  Created by Rylie Castell on 27.05.25.
@@ -7,29 +7,26 @@
 
 import SwiftUI
 
-struct EntrySectionView: View {
-    var sectionTitle: String
-    var sectionEntries: [Entry]
-    @Binding var allEntries: [Entry]
-
+struct EntryListHeaderView: View {
+    @State var alertIsVisible: Bool = false
+    @Binding var entries: [Entry]
     var body: some View {
-        Section(sectionTitle.uppercased()) {
-            ForEach(sectionEntries, id: \.id) { entry in
-                EntryListItem(entry: entry)
-                    .listRowSeparator(.hidden)
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            if let index = allEntries.firstIndex(where: {
-                                $0.id == entry.id
-                            }) {
-                                allEntries.remove(at: index)
-                            }
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                    }
+        HStack {
+            Text("Einträge")
+                .font(Fonts.listTitle)
+            Spacer()
+            Button("Alles löschen") {
+                alertIsVisible = true
+            }
+            .foregroundColor(.red)
+            .alert("Bist du sicher, dass du alle Einträge löschen willst?", isPresented: $alertIsVisible) {
+                Button("Abbrechen", role: .cancel) { }
+                Button("Löschen", role: .destructive) {
+                    entries.removeAll()
+                }
             }
         }
+        .listRowSeparator(.hidden)
     }
 }
 
@@ -64,10 +61,5 @@ struct EntrySectionView: View {
             type: .snack
         ),
     ]
-    var sectionEntries: [Entry] { entries.filter { $0.type == .meal } }
-    EntrySectionView(
-        sectionTitle: "Mahlzeiten",
-        sectionEntries: sectionEntries,
-        allEntries: $entries
-    )
+    EntryListHeaderView(entries: $entries)
 }

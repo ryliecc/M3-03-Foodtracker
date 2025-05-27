@@ -25,6 +25,7 @@ struct EntryListItem: View {
                 Text("kcal")
                     .font(Fonts.entryCaloriesLabel)
             }
+            .frame(width: 48, height: 48)
             .foregroundColor(
                 Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
             )
@@ -39,7 +40,8 @@ struct EntryListItem: View {
                 )
             )
         }
-        .padding()
+        .frame(height: 72)
+        .padding(12)
         .background(
             RoundedRectangle(cornerRadius: 8).fill(
                 Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)

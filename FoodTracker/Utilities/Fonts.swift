@@ -14,4 +14,5 @@ struct Fonts {
     static let entryDate = Font.custom("Poppins-ExtraLight", size: 12)
     static let entryCalories = Font.custom("Poppins-ExtraBold", size: 20)
     static let entryCaloriesLabel = Font.custom("Poppins-Medium", size: 14)
+    static let listTitle = Font.custom("Poppins-Medium", size: 32)
 }

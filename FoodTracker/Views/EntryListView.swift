@@ -44,12 +44,13 @@ struct EntryListView: View {
     var snacks: [Entry] { entries.filter { $0.type == .snack } }
 
     var body: some View {
-        List {
-            EntrySectionView(sectionTitle: "Mahlzeiten", sectionEntries: meals, allEntries: $entries)
-            EntrySectionView(sectionTitle: "Getränke", sectionEntries: drinks, allEntries: $entries)
-            EntrySectionView(sectionTitle: "Snacks", sectionEntries: snacks, allEntries: $entries)
-        }
-        .listStyle(.plain)
+            List {
+                EntryListHeaderView(entries: $entries)
+                EntrySectionView(sectionTitle: "Mahlzeiten", sectionEntries: meals, allEntries: $entries)
+                EntrySectionView(sectionTitle: "Getränke", sectionEntries: drinks, allEntries: $entries)
+                EntrySectionView(sectionTitle: "Snacks", sectionEntries: snacks, allEntries: $entries)
+            }
+            .listStyle(.plain)
     }
 }
 
