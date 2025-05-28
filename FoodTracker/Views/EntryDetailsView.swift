@@ -14,9 +14,9 @@ struct EntryDetailsView: View {
             Text(entry.title)
             Text(entry.type.rawValue)
             Text("\(entry.calories) kcal")
-            Text("\(String(format: "%.1f", entry.carbohydrates))g Kohlenhydrate")
-            Text("\(String(format: "%.1f", entry.protein))g Protein")
-            Text("\(String(format: "%.1f", entry.fat))g Fett")
+            Text("\(entry.carbohydrates.formattedGrams) Kohlenhydrate")
+            Text("\(entry.protein.formattedGrams) Protein")
+            Text("\(entry.fat.formattedGrams) Fett")
             Text(entry.formattedDate)
         }
     }
