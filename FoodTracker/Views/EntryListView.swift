@@ -108,12 +108,13 @@ struct EntryListView: View {
                         allEntries: $entries
                     )
                     Spacer()
-                        .padding(.bottom, 48)
+                        .padding(.bottom, 32)
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
                 EntryFormView(entries: $entries)
                     .padding()
+                    .padding(.bottom, -24)
             }
         }
     }

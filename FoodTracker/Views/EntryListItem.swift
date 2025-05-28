@@ -10,11 +10,8 @@ import SwiftUI
 struct EntryListItem: View {
     var entry: Entry
 
-    @State var detailsVisible: Bool = false
     var body: some View {
-        Button {
-            detailsVisible = true
-        } label: {
+        NavigationLink(destination: EntryDetailsView(entry: entry)) {
             HStack {
                 VStack(alignment: .leading) {
                     Text(entry.title)
@@ -53,15 +50,19 @@ struct EntryListItem: View {
                 )
             )
         }
-        .sheet(isPresented: $detailsVisible) {
-            EntryDetailsView(entry: entry)
-                .presentationDetents([.height(260)])
-                .presentationDragIndicator(.visible)
-        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
 #Preview {
-    var entry = Entry(title: "Titel", date: Date(), calories: 100, carbohydrates: 20, protein: 20, fat: 10, type: .meal)
+    var entry = Entry(
+        title: "Titel",
+        date: Date(),
+        calories: 100,
+        carbohydrates: 20,
+        protein: 20,
+        fat: 10,
+        type: .meal
+    )
     EntryListItem(entry: entry)
 }
