@@ -88,31 +88,33 @@ struct EntryListView: View {
     var snacks: [Entry] { entries.filter { $0.type == .snack } }
 
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            List {
-                EntryListHeaderView(entries: $entries)
-                EntrySectionView(
-                    sectionTitle: "Mahlzeiten",
-                    sectionEntries: meals,
-                    allEntries: $entries
-                )
-                EntrySectionView(
-                    sectionTitle: "Getränke",
-                    sectionEntries: drinks,
-                    allEntries: $entries
-                )
-                EntrySectionView(
-                    sectionTitle: "Snacks",
-                    sectionEntries: snacks,
-                    allEntries: $entries
-                )
-                Spacer()
-                    .padding(.bottom, 48)
-                    .listRowSeparator(.hidden)
+        NavigationStack {
+            ZStack(alignment: .bottomTrailing) {
+                List {
+                    EntryListHeaderView(entries: $entries)
+                    EntrySectionView(
+                        sectionTitle: "Mahlzeiten",
+                        sectionEntries: meals,
+                        allEntries: $entries
+                    )
+                    EntrySectionView(
+                        sectionTitle: "Getränke",
+                        sectionEntries: drinks,
+                        allEntries: $entries
+                    )
+                    EntrySectionView(
+                        sectionTitle: "Snacks",
+                        sectionEntries: snacks,
+                        allEntries: $entries
+                    )
+                    Spacer()
+                        .padding(.bottom, 48)
+                        .listRowSeparator(.hidden)
+                }
+                .listStyle(.plain)
+                EntryFormView(entries: $entries)
+                    .padding()
             }
-            .listStyle(.plain)
-            EntryFormView(entries: $entries)
-                .padding()
         }
     }
 }
