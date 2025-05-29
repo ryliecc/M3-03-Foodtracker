@@ -1,49 +1,32 @@
 //
-//  EntryListView.swift
+//  DashboardView.swift
 //  FoodTracker
 //
-//  Created by Rylie Castell on 26.05.25.
+//  Created by Rylie Castell on 29.05.25.
 //
 
 import SwiftUI
 
-struct EntryListView: View {
+struct DashboardView: View {
     @Binding var entries: [Entry]
 
-    var meals: [Entry] { entries.filter { $0.type == .meal } }
-    var drinks: [Entry] { entries.filter { $0.type == .drink } }
-    var snacks: [Entry] { entries.filter { $0.type == .snack } }
+    var calorieSum: Int {
+        var sum = 0
+        entries.forEach { entry in
+            sum += entry.calories
+        }
+        return sum
+    }
 
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .bottomTrailing) {
-                List {
-                    EntryListHeaderView(entries: $entries)
-                    EntrySectionView(
-                        sectionTitle: "Mahlzeiten",
-                        sectionEntries: meals,
-                        allEntries: $entries
-                    )
-                    EntrySectionView(
-                        sectionTitle: "Getränke",
-                        sectionEntries: drinks,
-                        allEntries: $entries
-                    )
-                    EntrySectionView(
-                        sectionTitle: "Snacks",
-                        sectionEntries: snacks,
-                        allEntries: $entries
-                    )
-                    Spacer()
-                        .padding(.bottom, 32)
-                        .listRowSeparator(.hidden)
-                }
-                .listStyle(.plain)
-                EntryFormView(entries: $entries)
-                    .padding()
-                    .padding(.bottom, -8)
-            }
+        Text("Guten Abend!")
+        Spacer()
+        VStack {
+            Text("Du hast heute")
+            Text("\(calorieSum) kcal")
+            Text("zu dir genommen.")
         }
+        Spacer()
     }
 }
 
@@ -122,5 +105,5 @@ struct EntryListView: View {
             type: .snack
         ),
     ]
-    EntryListView(entries: $entries)
+    DashboardView(entries: $entries)
 }
