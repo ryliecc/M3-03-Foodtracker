@@ -12,3 +12,8 @@ enum EntryType: String, CaseIterable {
     case drink = "Getränk"
     case snack = "Snack"
 }
+
+enum ViewSelection {
+    case dashboard
+    case entryList
+}

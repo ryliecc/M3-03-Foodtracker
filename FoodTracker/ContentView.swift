@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selection: ViewSelection = .dashboard
     var body: some View {
         VStack(spacing: 0) {
             HeaderView()
-            EntryListView()
+            TabView(selection: $selection) {
+                Tab("Dashboard", systemImage: "house.fill", value: .dashboard) {
+                    Text("Dashboard")
+                }
+                Tab("Einträge", systemImage: "list.bullet", value: .entryList) {
+                    EntryListView()
+                }
+            }
         }
     }
 }

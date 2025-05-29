@@ -114,7 +114,7 @@ struct EntryListView: View {
                 .listStyle(.plain)
                 EntryFormView(entries: $entries)
                     .padding()
-                    .padding(.bottom, -24)
+                    .padding(.bottom, -8)
             }
         }
     }
