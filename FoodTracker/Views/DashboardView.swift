@@ -20,6 +20,10 @@ struct DashboardView: View {
         }
         return sum
     }
+    
+    var progress: Double {
+        1.0 / Double(user.calorieGoal) * Double(calorieSum)
+    }
 
     var body: some View {
         Text("\(greeting()), \(user.name)!")
@@ -28,12 +32,9 @@ struct DashboardView: View {
         VStack {
             Text("Du hast heute")
                 .font(Fonts.dashboardCalorieText)
-            Text("\(calorieSum)\nkcal")
-                .font(Fonts.dashboardCalories)
-                .multilineTextAlignment(.center)
+            CircularProgressView(progress: progress, centerText: "\(calorieSum.formatted())\nkcal")
             Text("zu dir genommen.")
                 .font(Fonts.dashboardCalorieText)
-            Text("Das entspricht \(String(format: "%.2f", (100.0 / Double(user.calorieGoal) * Double(calorieSum))))% deines täglichen Kalorienziels.")
                 .multilineTextAlignment(.center)
         }
         .position(x: 200, y: 0)
