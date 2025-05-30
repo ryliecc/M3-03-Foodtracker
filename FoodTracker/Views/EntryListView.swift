@@ -40,7 +40,7 @@ struct EntryListView: View {
                             Image(systemName: "chevron.left")
                         }
                         Spacer()
-                        Text(
+                        Text(Calendar.current.isDate(selectedDate, inSameDayAs: Date()) ? "Heute" :
                             selectedDate.formatted(
                                 date: .abbreviated,
                                 time: .omitted
