@@ -21,7 +21,7 @@ struct ContentView: View {
         ),
         Entry(
             title: "Veganer Chicken Burger",
-            date: Date(),
+            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             calories: 473,
             carbohydrates: 30,
             protein: 5.2,
@@ -66,7 +66,7 @@ struct ContentView: View {
         ),
         Entry(
             title: "Wasser",
-            date: Date(),
+            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             calories: 0,
             carbohydrates: 0,
             protein: 0,
@@ -75,7 +75,7 @@ struct ContentView: View {
         ),
         Entry(
             title: "Studentenfutter",
-            date: Date(),
+            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             calories: 462,
             carbohydrates: 44.9,
             protein: 13.8,
