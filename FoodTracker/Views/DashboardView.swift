@@ -23,14 +23,20 @@ struct DashboardView: View {
 
     var body: some View {
         Text("\(greeting()), \(user.name)!")
-        Spacer()
+            .font(Fonts.dashboardGreeting)
+            .position(x: 150, y: 64)
         VStack {
             Text("Du hast heute")
-            Text("\(calorieSum) kcal")
+                .font(Fonts.dashboardCalorieText)
+            Text("\(calorieSum)\nkcal")
+                .font(Fonts.dashboardCalories)
+                .multilineTextAlignment(.center)
             Text("zu dir genommen.")
+                .font(Fonts.dashboardCalorieText)
             Text("Das entspricht \(String(format: "%.2f", (100.0 / Double(user.calorieGoal) * Double(calorieSum))))% deines täglichen Kalorienziels.")
+                .multilineTextAlignment(.center)
         }
-        Spacer()
+        .position(x: 200, y: 0)
     }
     
     func greeting(for date: Date = Date()) -> String {
