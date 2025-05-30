@@ -27,9 +27,16 @@ struct ProfileView: View {
                     }
                 }
                 Section {
-                    Button("Speichern") {
-                        user = newUser
-                        formIsVisible = false
+                    HStack {
+                        Button("Abbrechen") {
+                            newUser = user
+                            formIsVisible = false
+                        }
+                        Spacer()
+                        Button("Speichern") {
+                            user = newUser
+                            formIsVisible = false
+                        }
                     }
                 }
             }
