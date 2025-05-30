@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var user: User = User(name: "Rylie", calorieGoal: 2000)
     @State private var selection: ViewSelection = .dashboard
     @State var entries: [Entry] = [
         Entry(
@@ -88,7 +89,7 @@ struct ContentView: View {
             HeaderView()
             TabView(selection: $selection) {
                 Tab("Dashboard", systemImage: "house.fill", value: .dashboard) {
-                    DashboardView(entries: $entries)
+                    DashboardView(entries: $entries, user: $user)
                 }
                 Tab("Einträge", systemImage: "list.bullet", value: .entryList) {
                     EntryListView(entries: $entries)

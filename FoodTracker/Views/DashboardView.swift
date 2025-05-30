@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @Binding var entries: [Entry]
+    @Binding var user: User
 
     var calorieSum: Int {
         var sum = 0
@@ -21,12 +22,13 @@ struct DashboardView: View {
     }
 
     var body: some View {
-        Text("Guten Abend!")
+        Text("Guten Abend, \(user.name)!")
         Spacer()
         VStack {
             Text("Du hast heute")
             Text("\(calorieSum) kcal")
             Text("zu dir genommen.")
+            Text("Das entspricht \(String(format: "%.2f", (100.0 / Double(user.calorieGoal) * Double(calorieSum))))% deines täglichen Kalorienziels.")
         }
         Spacer()
     }
@@ -107,5 +109,6 @@ struct DashboardView: View {
             type: .snack
         ),
     ]
-    DashboardView(entries: $entries)
+    @Previewable @State var user = User(name: "Rylie", calorieGoal: 2000)
+    DashboardView(entries: $entries, user: $user)
 }
