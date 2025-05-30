@@ -38,6 +38,7 @@ struct EntryListView: View {
                             }
                         }) {
                             Image(systemName: "chevron.left")
+                                .foregroundColor(.black)
                         }
                         Spacer()
                         Text(Calendar.current.isDate(selectedDate, inSameDayAs: Date()) ? "Heute" :
@@ -58,6 +59,7 @@ struct EntryListView: View {
                             }
                         }) {
                             Image(systemName: "chevron.right")
+                                .foregroundColor(.black)
                         }
                     }
                     .padding()

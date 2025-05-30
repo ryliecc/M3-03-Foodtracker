@@ -117,13 +117,14 @@ struct EntryFormView: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
+                            .foregroundColor(Color("SecondaryColor"))
                             .background(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color(.yellow))
+                                    .fill(Color("PrimaryColor"))
                             )
                         }
                     }
-                    .presentationDetents([.height(460)])
+                    .presentationDetents([.height(500)])
                     .presentationDragIndicator(.visible)
                 }
             }

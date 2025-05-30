@@ -28,17 +28,11 @@ struct EntryListItem: View {
                         .font(Fonts.entryCaloriesLabel)
                 }
                 .frame(width: 48, height: 48)
-                .foregroundColor(
-                    Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
-                )
+                .foregroundColor(Color("SecondaryColor"))
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 8).fill(
-                        Color(
-                            red: 99 / 255,
-                            green: 105 / 255,
-                            blue: 64 / 255
-                        )
+                        Color(Color("PrimaryColor"))
                     )
                 )
             }
@@ -46,11 +40,10 @@ struct EntryListItem: View {
             .padding(12)
             .background(
                 RoundedRectangle(cornerRadius: 8).fill(
-                    Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
+                    Color("SecondaryColor")
                 )
             )
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

@@ -13,17 +13,13 @@ struct HeaderView: View {
             Text("NutriLog")
                 .font(Fonts.headerTitle)
                 .foregroundColor(
-                    Color(red: 216 / 255, green: 224 / 255, blue: 172 / 255)
+                    Color("SecondaryColor")
                 )
         }
         .frame(maxWidth: .infinity)
         .padding(.bottom, 12)
         .background(
-            Color(
-                red: 99 / 255,
-                green: 105 / 255,
-                blue: 64 / 255
-            )
+            Color("PrimaryColor")
         )
     }
 }
