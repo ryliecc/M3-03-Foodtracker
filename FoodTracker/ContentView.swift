@@ -94,6 +94,9 @@ struct ContentView: View {
                 Tab("Einträge", systemImage: "list.bullet", value: .entryList) {
                     EntryListView(entries: $entries)
                 }
+                Tab("Profil", systemImage: "person.crop.circle.fill", value: .profile) {
+                    ProfileView(user: $user)
+                }
             }
         }
     }

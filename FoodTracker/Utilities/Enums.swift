@@ -16,4 +16,5 @@ enum EntryType: String, CaseIterable {
 enum ViewSelection {
     case dashboard
     case entryList
+    case profile
 }
