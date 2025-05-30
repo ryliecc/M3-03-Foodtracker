@@ -17,7 +17,11 @@ struct EntryListItem: View {
                     Text(entry.title)
                         .font(Fonts.entryTitle)
                     Spacer()
-                    Text("\(entry.formattedDate)")
+                    Text("Kohlenhydrate: \(entry.carbohydrates.formattedGrams)")
+                        .font(Fonts.entryDate)
+                    Text("Protein: \(entry.protein.formattedGrams)")
+                        .font(Fonts.entryDate)
+                    Text("Fett: \(entry.fat.formattedGrams)")
                         .font(Fonts.entryDate)
                 }
                 Spacer()
