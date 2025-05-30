@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    var currentDate: Date { Date() }
     @State private var selection: ViewSelection = .dashboard
     @State var entries: [Entry] = [
         Entry(
@@ -89,7 +88,7 @@ struct ContentView: View {
             HeaderView()
             TabView(selection: $selection) {
                 Tab("Dashboard", systemImage: "house.fill", value: .dashboard) {
-                    DashboardView(entries: $entries, currentDate: currentDate)
+                    DashboardView(entries: $entries)
                 }
                 Tab("Einträge", systemImage: "list.bullet", value: .entryList) {
                     EntryListView(entries: $entries)

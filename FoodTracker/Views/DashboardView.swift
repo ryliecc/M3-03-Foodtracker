@@ -9,12 +9,11 @@ import SwiftUI
 
 struct DashboardView: View {
     @Binding var entries: [Entry]
-    var currentDate: Date
 
     var calorieSum: Int {
         var sum = 0
         entries.filter { entry in
-            Calendar.current.isDate(entry.date, inSameDayAs: currentDate)
+            Calendar.current.isDate(entry.date, inSameDayAs: Date())
         }.forEach { entry in
             sum += entry.calories
         }
@@ -108,5 +107,5 @@ struct DashboardView: View {
             type: .snack
         ),
     ]
-    DashboardView(entries: $entries, currentDate: Date())
+    DashboardView(entries: $entries)
 }

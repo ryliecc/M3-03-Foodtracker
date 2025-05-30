@@ -9,36 +9,81 @@ import SwiftUI
 
 struct EntryListView: View {
     @Binding var entries: [Entry]
+    @State private var selectedDate: Date = Calendar.current.startOfDay(
+        for: Date()
+    )
 
-    var meals: [Entry] { entries.filter { $0.type == .meal } }
-    var drinks: [Entry] { entries.filter { $0.type == .drink } }
-    var snacks: [Entry] { entries.filter { $0.type == .snack } }
+    var filteredEntries: [Entry] {
+        entries.filter {
+            Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
+        }
+    }
+
+    var meals: [Entry] { filteredEntries.filter { $0.type == .meal } }
+    var drinks: [Entry] { filteredEntries.filter { $0.type == .drink } }
+    var snacks: [Entry] { filteredEntries.filter { $0.type == .snack } }
 
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottomTrailing) {
-                List {
-                    EntryListHeaderView(entries: $entries)
-                    EntrySectionView(
-                        sectionTitle: "Mahlzeiten",
-                        sectionEntries: meals,
-                        allEntries: $entries
-                    )
-                    EntrySectionView(
-                        sectionTitle: "Getränke",
-                        sectionEntries: drinks,
-                        allEntries: $entries
-                    )
-                    EntrySectionView(
-                        sectionTitle: "Snacks",
-                        sectionEntries: snacks,
-                        allEntries: $entries
-                    )
-                    Spacer()
-                        .padding(.bottom, 32)
-                        .listRowSeparator(.hidden)
+                VStack {
+                    HStack {
+                        Button(action: {
+                            if let previousDay = Calendar.current.date(
+                                byAdding: .day,
+                                value: -1,
+                                to: selectedDate
+                            ) {
+                                selectedDate = previousDay
+                            }
+                        }) {
+                            Image(systemName: "chevron.left")
+                        }
+                        Spacer()
+                        Text(
+                            selectedDate.formatted(
+                                date: .abbreviated,
+                                time: .omitted
+                            )
+                        )
+                        .font(.headline)
+                        Spacer()
+                        Button(action: {
+                            if let nextDay = Calendar.current.date(
+                                byAdding: .day,
+                                value: 1,
+                                to: selectedDate
+                            ) {
+                                selectedDate = nextDay
+                            }
+                        }) {
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                    .padding()
+                    List {
+                        EntryListHeaderView(entries: $entries)
+                        EntrySectionView(
+                            sectionTitle: "Mahlzeiten",
+                            sectionEntries: meals,
+                            allEntries: $entries
+                        )
+                        EntrySectionView(
+                            sectionTitle: "Getränke",
+                            sectionEntries: drinks,
+                            allEntries: $entries
+                        )
+                        EntrySectionView(
+                            sectionTitle: "Snacks",
+                            sectionEntries: snacks,
+                            allEntries: $entries
+                        )
+                        Spacer()
+                            .padding(.bottom, 32)
+                            .listRowSeparator(.hidden)
+                    }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
                 EntryFormView(entries: $entries)
                     .padding()
                     .padding(.bottom, -8)
