@@ -22,7 +22,7 @@ struct DashboardView: View {
     }
 
     var body: some View {
-        Text("Guten Abend, \(user.name)!")
+        Text("\(greeting()), \(user.name)!")
         Spacer()
         VStack {
             Text("Du hast heute")
@@ -31,6 +31,20 @@ struct DashboardView: View {
             Text("Das entspricht \(String(format: "%.2f", (100.0 / Double(user.calorieGoal) * Double(calorieSum))))% deines täglichen Kalorienziels.")
         }
         Spacer()
+    }
+    
+    func greeting(for date: Date = Date()) -> String {
+        let hour = Calendar.current.component(.hour, from: date)
+        switch hour {
+        case 5..<12:
+            return "Guten Morgen"
+        case 12..<18:
+            return "Guten Tag"
+        case 18..<22:
+            return "Guten Abend"
+        default:
+            return "Gute Nacht"
+        }
     }
 }
 
