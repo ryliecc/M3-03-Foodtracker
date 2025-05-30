@@ -10,6 +10,7 @@ import SwiftUI
 struct EntryFormView: View {
     @State var sheetIsVisible: Bool = false
     @State var newEntryTitle: String = ""
+    @State var newEntryDate: Date = Date()
     @State var newEntryCalories: Int = 0
     @State var carbohydratesText: String = ""
     @State var proteinText: String = ""
@@ -44,6 +45,11 @@ struct EntryFormView: View {
                     Form {
                         Section {
                             TextField("Titel", text: $newEntryTitle)
+                            DatePicker(
+                                "Datum auswählen",
+                                selection: $newEntryDate,
+                                displayedComponents: .date
+                            )
                             Stepper(
                                 value: $newEntryCalories,
                                 in: 0...2000,
@@ -72,13 +78,31 @@ struct EntryFormView: View {
 
                         Section {
                             Button("Hinzufügen") {
-                                let carbs = Double(carbohydratesText.replacingOccurrences(of: ",", with: ".")) ?? 0
-                                    let protein = Double(proteinText.replacingOccurrences(of: ",", with: ".")) ?? 0
-                                    let fat = Double(fatText.replacingOccurrences(of: ",", with: ".")) ?? 0
-                                
+                                let carbs =
+                                    Double(
+                                        carbohydratesText.replacingOccurrences(
+                                            of: ",",
+                                            with: "."
+                                        )
+                                    ) ?? 0
+                                let protein =
+                                    Double(
+                                        proteinText.replacingOccurrences(
+                                            of: ",",
+                                            with: "."
+                                        )
+                                    ) ?? 0
+                                let fat =
+                                    Double(
+                                        fatText.replacingOccurrences(
+                                            of: ",",
+                                            with: "."
+                                        )
+                                    ) ?? 0
+
                                 let newEntry = Entry(
                                     title: newEntryTitle,
-                                    date: Date(),
+                                    date: newEntryDate,
                                     calories: newEntryCalories,
                                     carbohydrates: carbs,
                                     protein: protein,
