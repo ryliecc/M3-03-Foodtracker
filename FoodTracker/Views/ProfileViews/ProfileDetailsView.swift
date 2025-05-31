@@ -14,39 +14,42 @@ struct ProfileDetailsView: View {
         ScrollView {
             ZStack {
                 RoundedRectangle(cornerRadius: 8).fill(Color("SecondaryColor"))
-                    .frame(width: 360, height: 440)
-                    .position(x: 200, y: 260)
+                    .frame(width: 360, height: 600)
+                    .position(x: 200, y: 330)
                 RoundedRectangle(cornerRadius: 8).fill(.white)
-                    .frame(width: 320, height: 380)
+                    .frame(width: 320, height: 560)
                     .padding(.bottom, 30)
-                    .position(x: 200, y: 264)
+                    .position(x: 200, y: 340)
                 RoundedRectangle(cornerRadius: 8).fill(.brown)
                     .frame(width: 200, height: 60)
                     .position(x: 200, y: 48)
-                VStack {
-                    Text("Name: \(user.name)")
-                    Text(
-                        "Dominierende Hormone: \(user.sex == .male ? "Testosteron" : "Östrogen")"
-                    )
-                    Text("Größe: \(user.heightInMeter.formattedMeters)")
-                    Text("Gewicht: \(user.weightInKilogram.formattedKilograms)")
-                    Text(
-                        "BMI: \(String(format: "%.1f", user.bmi)) (\(user.weightCategory.rawValue))"
-                    )
-                    Text("Aktivitätslevel: \(user.activityLevel.rawValue)")
-                    Text("Kalorienziel: \(user.calorieGoal) kcal")
-                    Text("Ziel: \(user.weightGoal.rawValue)")
-                    Text("Ernährungsform: \(user.diet.rawValue)")
-                    Text(
-                        "Kohlenhydrate: \(user.carbohydrateInGramGoal.formattedGrams)"
-                    )
-                    Text("Protein: \(user.proteinInGramGoal.formattedGrams)")
-                    Text("Fett: \(user.fatInGramGoal.formattedGrams)")
+                Grid(alignment: .top) {
+                    ProfileDetailsRowView(firstText: "Name:", secondText: user.name)
+                    ProfileDetailsRowView(firstText: "Dominierende Hormone:", secondText: (user.sex == .male ? "Testosteron" : "Östrogen"))
+                    ProfileDetailsRowView(firstText: "Größe:", secondText: user.heightInMeter.formattedMeters)
+                    ProfileDetailsRowView(firstText: "Gewicht:", secondText: user.weightInKilogram.formattedKilograms)
+                    Divider()
+                    ProfileDetailsRowView(firstText: "BMI:", secondText: "\(String(format: "%.1f", user.bmi)) (\(user.weightCategory.rawValue))")
+                    ProfileDetailsRowView(firstText: "Aktivitätslevel:", secondText: user.activityLevel.rawValue)
+                    ProfileDetailsRowView(firstText: "Kalorienziel:", secondText: "\(user.calorieGoal) kcal")
+                    ProfileDetailsRowView(firstText: "Ziel:", secondText: user.weightGoal.rawValue)
+                    Divider()
+                    ProfileDetailsRowView(firstText: "Ernährungsform:", secondText: user.diet.rawValue)
+                    ProfileDetailsRowView(firstText: "Kohlenhydrate:", secondText: user.carbohydrateInGramGoal.formattedGrams)
+                    ProfileDetailsRowView(firstText: "Protein", secondText: user.proteinInGramGoal.formattedGrams)
+                    ProfileDetailsRowView(firstText: "Fett:", secondText: user.fatInGramGoal.formattedGrams)
+                        .padding(.bottom, 40)
                     Button("Bearbeiten") {
                         formIsVisible = true
                     }
+                    .foregroundColor(Color("SecondaryColor"))
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 8).fill(Color("PrimaryColor")))
+
                 }
-                .position(x: 200, y: 260)
+                .frame(width: 300)
+                .position(x: 210, y: 340)
+
             }
         }
     }
