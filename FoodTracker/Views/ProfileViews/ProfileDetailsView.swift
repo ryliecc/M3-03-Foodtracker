@@ -30,12 +30,16 @@ struct ProfileDetailsView: View {
                     )
                     Text("Größe: \(user.heightInMeter.formattedMeters)")
                     Text("Gewicht: \(user.weightInKilogram.formattedKilograms)")
-                    Text("BMI: \(String(format: "%.1f", user.bmi)) (\(user.weightCategory.rawValue))")
+                    Text(
+                        "BMI: \(String(format: "%.1f", user.bmi)) (\(user.weightCategory.rawValue))"
+                    )
                     Text("Aktivitätslevel: \(user.activityLevel.rawValue)")
                     Text("Kalorienziel: \(user.calorieGoal) kcal")
                     Text("Ziel: \(user.weightGoal.rawValue)")
                     Text("Ernährungsform: \(user.diet.rawValue)")
-                    Text("Kohlenhydrate: \(user.carbohydrateInGramGoal.formattedGrams)")
+                    Text(
+                        "Kohlenhydrate: \(user.carbohydrateInGramGoal.formattedGrams)"
+                    )
                     Text("Protein: \(user.proteinInGramGoal.formattedGrams)")
                     Text("Fett: \(user.fatInGramGoal.formattedGrams)")
                     Button("Bearbeiten") {

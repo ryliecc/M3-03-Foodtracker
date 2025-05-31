@@ -10,6 +10,7 @@ import SwiftUI
 struct EntryListHeaderView: View {
     @State var alertIsVisible: Bool = false
     @Binding var entries: [Entry]
+    @Binding var selectedDate: Date
     var body: some View {
         HStack {
             Text("Einträge")
@@ -25,7 +26,12 @@ struct EntryListHeaderView: View {
             ) {
                 Button("Abbrechen", role: .cancel) {}
                 Button("Löschen", role: .destructive) {
-                    entries.removeAll()
+                    entries.removeAll(where: {
+                        Calendar.current.isDate(
+                            $0.date,
+                            inSameDayAs: selectedDate
+                        )
+                    })
                 }
             }
         }
@@ -108,5 +114,6 @@ struct EntryListHeaderView: View {
             type: .snack
         ),
     ]
-    EntryListHeaderView(entries: $entries)
+    @Previewable @State var selectedDate = Date()
+    EntryListHeaderView(entries: $entries, selectedDate: $selectedDate)
 }

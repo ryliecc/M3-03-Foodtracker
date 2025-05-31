@@ -41,11 +41,16 @@ struct EntryListView: View {
                                 .foregroundColor(.black)
                         }
                         Spacer()
-                        Text(Calendar.current.isDate(selectedDate, inSameDayAs: Date()) ? "Heute" :
-                            selectedDate.formatted(
-                                date: .abbreviated,
-                                time: .omitted
+                        Text(
+                            Calendar.current.isDate(
+                                selectedDate,
+                                inSameDayAs: Date()
                             )
+                                ? "Heute"
+                                : selectedDate.formatted(
+                                    date: .abbreviated,
+                                    time: .omitted
+                                )
                         )
                         .font(.headline)
                         Spacer()
@@ -64,7 +69,10 @@ struct EntryListView: View {
                     }
                     .padding()
                     List {
-                        EntryListHeaderView(entries: $entries)
+                        EntryListHeaderView(
+                            entries: $entries,
+                            selectedDate: $selectedDate
+                        )
                         EntrySectionView(
                             sectionTitle: "Mahlzeiten",
                             sectionEntries: meals,

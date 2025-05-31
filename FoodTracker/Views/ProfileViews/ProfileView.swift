@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @Binding var user: User
     @State var formIsVisible: Bool = false
-    
+
     var body: some View {
         if formIsVisible {
             ProfileFormView(user: $user, formIsVisible: $formIsVisible)
