@@ -20,7 +20,7 @@ struct Entry: Identifiable {
     var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        formatter.timeStyle = .short
+        formatter.timeStyle = .none
         formatter.locale = Locale(identifier: "de_DE")
         return formatter.string(from: date)
     }
