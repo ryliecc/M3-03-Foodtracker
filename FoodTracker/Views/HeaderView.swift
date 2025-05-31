@@ -9,7 +9,10 @@ import SwiftUI
 
 struct HeaderView: View {
     var body: some View {
-        VStack {
+        HStack {
+            Image(systemName: "leaf")
+                .font(.system(size: 48))
+                .foregroundColor(Color("SecondaryColor"))
             Text("NutriLog")
                 .font(Fonts.headerTitle)
                 .foregroundColor(
