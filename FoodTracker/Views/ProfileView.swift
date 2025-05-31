@@ -36,7 +36,15 @@ struct ProfileView: View {
             }
         } else {
             Text("Name: \(user.name)")
+            Text("Dominierende Hormone: \(user.sex == .male ? "Testosteron" : "Östrogen")")
+            Text("Größe: \(user.heightInMeter.formattedMeters)")
+            Text("Gewicht: \(user.weightInKilogram.formattedKilograms)")
+            Text("Aktivitätslevel: \(user.activityLevel.rawValue)")
             Text("Kalorienziel: \(user.calorieGoal) kcal")
+            Text("Ernährungsform: \(user.diet.rawValue)")
+            Text("Kohlenhydrate: \(user.carbohydrateInGramGoal.formattedGrams)")
+            Text("Protein: \(user.proteinInGramGoal.formattedGrams)")
+            Text("Fett: \(user.fatInGramGoal.formattedGrams)")
             Button("Bearbeiten") {
                 formIsVisible = true
             }
@@ -50,6 +58,6 @@ struct ProfileView: View {
 }
 
 #Preview {
-    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.86, weightInKilogram: 73.2, activityLevel: .medium, weightGoal: .maintain, diet: .veganRegular)
+    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.63, weightInKilogram: 63.2, activityLevel: .medium, weightGoal: .maintain, diet: .veganRegular)
     ProfileView(user: $user)
 }
