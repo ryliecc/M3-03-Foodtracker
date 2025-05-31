@@ -13,10 +13,10 @@ struct ProfileView: View {
     @State var formIsVisible: Bool = false
     
     var weightRange: [Double] {
-        Array(stride(from: 30.0, through: 200.0, by: 0.5))  // z. B. 30 – 200 kg
+        Array(stride(from: 30.0, through: 200.0, by: 0.1))
     }
     var heightRange: [Double] {
-        Array(stride(from: 1.40, through: 2.20, by: 0.01))  // z. B. 1.40 – 2.20 m
+        Array(stride(from: 1.40, through: 2.20, by: 0.01))
     }
     
     var body: some View {
@@ -122,8 +122,8 @@ struct ProfileView: View {
         self.newUser = User(
             name: user.wrappedValue.name,
             sex: user.wrappedValue.sex,
-            heightInMeter: Double(round(100 * user.wrappedValue.heightInMeter) / 100),
-                weightInKilogram: Double(round(2 * user.wrappedValue.weightInKilogram) / 2),
+            heightInMeter: (user.wrappedValue.heightInMeter * 100).rounded() / 100,
+            weightInKilogram: Double(round(2 * user.wrappedValue.weightInKilogram) / 2),
             activityLevel: user.wrappedValue.activityLevel,
             weightGoal: user.wrappedValue.weightGoal,
             diet: user.wrappedValue.diet
