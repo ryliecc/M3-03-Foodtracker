@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EntryFormView: View {
-    @State var sheetIsVisible: Bool = true
+    @State var sheetIsVisible: Bool = false
     @State var newEntryTitle: String = ""
     @State var newEntryDate: Date = Date()
     @State var newEntryCalories: Int = 0
