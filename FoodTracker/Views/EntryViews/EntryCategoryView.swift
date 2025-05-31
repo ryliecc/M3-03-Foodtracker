@@ -11,11 +11,11 @@ struct EntryCategoryView: View {
     var categoryEmoji: String {
         switch entryType {
         case .breakfast:
-            "🍝"
+            "🥐"
         case .lunch:
             "🍝"
         case .dinner:
-            "🍝"
+            "🥗"
         case .drink:
             "🥤"
         case .snack:
@@ -26,15 +26,15 @@ struct EntryCategoryView: View {
     var categoryColor: Color {
         switch entryType {
         case .breakfast:
-            Color(.orange)
+            Color("BreakfastTypeColor")
         case .lunch:
-            Color(.orange)
+            Color("LunchTypeColor")
         case .dinner:
-            Color(.orange)
+            Color("DinnerTypeColor")
         case .drink:
-            Color(.blue)
+            Color("DrinkTypeColor")
         case .snack:
-            Color(.red)
+            Color("SnackTypeColor")
         }
     }
     var body: some View {
