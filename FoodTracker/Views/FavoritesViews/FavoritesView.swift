@@ -9,8 +9,18 @@ import SwiftUI
 
 struct FavoritesView: View {
     @Binding var entries: [Entry]
+    var favoritesDictionary: [String: Entry] {
+        var dictionary: [String: Entry] = [:]
+        for entry in entries where entry.isFavorite {
+            dictionary[entry.title] = entry
+        }
+        return dictionary
+    }
+    var favoriteEntries: [Entry] {
+        Array(favoritesDictionary.values)
+    }
     var filteredEntries: [Entry] {
-        entries.filter { $0.isFavorite }.filter { $0.type == allEntryTypes[chosenIndex] }
+        favoriteEntries.filter { $0.type == allEntryTypes[chosenIndex] }
     }
     let allEntryTypes: [EntryType] = EntryType.allCases
     @State var chosenIndex: Int = 0

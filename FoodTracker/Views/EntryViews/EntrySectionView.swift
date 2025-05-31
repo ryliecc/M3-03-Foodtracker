@@ -28,10 +28,14 @@ struct EntrySectionView: View {
                             Label("Löschen", systemImage: "trash")
                         }
                         Button {
-                            if let index = allEntries.firstIndex(where: {
-                                $0.id == entry.id
-                            }) {
-                                allEntries[index].isFavorite.toggle()
+                            allEntries.forEach { originalEntry in
+                                if originalEntry.title == entry.title {
+                                    if let index = allEntries.firstIndex(where: { $0.id == originalEntry.id}) {
+                                        var toggledEntry = Entry(title: allEntries[index].title, date: allEntries[index].date, calories: allEntries[index].calories, carbohydrates: allEntries[index].carbohydrates, protein: allEntries[index].protein, fat: allEntries[index].fat, type: allEntries[index].type, isFavorite: !allEntries[index].isFavorite)
+                                        allEntries.remove(at: index)
+                                        allEntries.append(toggledEntry)
+                                    }
+                                }
                             }
                         } label: {
                             Label(
