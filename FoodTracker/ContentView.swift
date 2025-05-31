@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, diet: .veganRegular)
-    @State private var selection: ViewSelection = .dashboard
+    @State private var selection: ViewSelection = .favorites
     @State var entries: [Entry] = [
         Entry(
             title: "Frühlingsrolle",
@@ -36,7 +36,8 @@ struct ContentView: View {
             carbohydrates: 4,
             protein: 23.6,
             fat: 35.3,
-            type: .breakfast
+            type: .breakfast,
+            isFavorite: true
         ),
         Entry(
             title: "Pasta al Pesto",
@@ -54,7 +55,8 @@ struct ContentView: View {
             carbohydrates: 35,
             protein: 0,
             fat: 0,
-            type: .drink
+            type: .drink,
+            isFavorite: true
         ),
         Entry(
             title: "Laugenbrezel",
@@ -63,7 +65,8 @@ struct ContentView: View {
             carbohydrates: 52,
             protein: 9.8,
             fat: 3.2,
-            type: .snack
+            type: .snack,
+            isFavorite: true
         ),
         Entry(
             title: "Wasser",
@@ -93,6 +96,9 @@ struct ContentView: View {
                 }
                 Tab("Einträge", systemImage: "list.bullet", value: .entryList) {
                     EntryListView(entries: $entries)
+                }
+                Tab("Favoriten", systemImage: "suit.heart.fill", value: .favorites) {
+                    FavoritesView(entries: $entries)
                 }
                 Tab("Profil", systemImage: "person.crop.circle.fill", value: .profile) {
                     ProfileView(user: $user)

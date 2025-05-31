@@ -25,7 +25,19 @@ struct EntrySectionView: View {
                                 allEntries.remove(at: index)
                             }
                         } label: {
-                            Label("Delete", systemImage: "trash")
+                            Label("Löschen", systemImage: "trash")
+                        }
+                        Button {
+                            if let index = allEntries.firstIndex(where: {
+                                $0.id == entry.id
+                            }) {
+                                allEntries[index].isFavorite = true
+                            }
+                        } label: {
+                            Label(
+                                (entry.isFavorite ? "Entfavorisieren" : "Favorisieren"),
+                                systemImage: (entry.isFavorite ? "suit.heart.fill" : "suit.heart")
+                            )
                         }
                     }
             }

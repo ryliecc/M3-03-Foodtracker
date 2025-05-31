@@ -16,6 +16,7 @@ struct Entry: Identifiable {
     var protein: Double
     var fat: Double
     var type: EntryType
+    var isFavorite: Bool
 
     var formattedDate: String {
         let formatter = DateFormatter()
@@ -23,5 +24,16 @@ struct Entry: Identifiable {
         formatter.timeStyle = .none
         formatter.locale = Locale(identifier: "de_DE")
         return formatter.string(from: date)
+    }
+    
+    init(title: String, date: Date, calories: Int, carbohydrates: Double, protein: Double, fat: Double, type: EntryType, isFavorite: Bool = false) {
+        self.title = title
+        self.date = date
+        self.calories = calories
+        self.carbohydrates = carbohydrates
+        self.protein = protein
+        self.fat = fat
+        self.type = type
+        self.isFavorite = isFavorite
     }
 }

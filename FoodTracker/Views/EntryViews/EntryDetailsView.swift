@@ -24,6 +24,16 @@ struct EntryDetailsView: View {
                     .fill(.brown)
                     .frame(width: 200, height: 60)
                     .position(x: 182, y: 30)
+                if entry.isFavorite {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color("SecondaryColor"))
+                        .frame(width: 40, height: 60)
+                        .position(x: 60, y: 50)
+                    Image(systemName: "suit.heart.fill")
+                        .font(.system(size: 24))
+                        .position(x: 60, y: 50)
+                        .foregroundColor(.red)
+                }
                 VStack(alignment: .center) {
                     HStack(alignment: .center) {
                         VStack(alignment: .center) {
@@ -73,7 +83,8 @@ struct EntryDetailsView: View {
         carbohydrates: 20,
         protein: 20,
         fat: 10,
-        type: .breakfast
+        type: .breakfast,
+        isFavorite: true
     )
     EntryDetailsView(entry: entry)
 }
