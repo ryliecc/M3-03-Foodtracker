@@ -31,12 +31,12 @@ struct EntrySectionView: View {
                             if let index = allEntries.firstIndex(where: {
                                 $0.id == entry.id
                             }) {
-                                allEntries[index].isFavorite = true
+                                allEntries[index].isFavorite.toggle()
                             }
                         } label: {
                             Label(
                                 (entry.isFavorite ? "Entfavorisieren" : "Favorisieren"),
-                                systemImage: (entry.isFavorite ? "suit.heart.fill" : "suit.heart")
+                                systemImage: "suit.heart"
                             )
                         }
                     }
