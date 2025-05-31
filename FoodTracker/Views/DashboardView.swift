@@ -20,26 +20,66 @@ struct DashboardView: View {
         }
         return sum
     }
-    
-    var progress: Double {
+    var carbohydrateSum: Double {
+        var sum = 0.0
+        entries.filter { entry in
+            Calendar.current.isDate(entry.date, inSameDayAs: Date())
+        }.forEach { entry in
+            sum += entry.carbohydrates
+        }
+        return sum
+    }
+    var proteinSum: Double {
+        var sum = 0.0
+        entries.filter { entry in
+            Calendar.current.isDate(entry.date, inSameDayAs: Date())
+        }.forEach { entry in
+            sum += entry.protein
+        }
+        return sum
+    }
+    var fatSum: Double {
+        var sum = 0.0
+        entries.filter { entry in
+            Calendar.current.isDate(entry.date, inSameDayAs: Date())
+        }.forEach { entry in
+            sum += entry.fat
+        }
+        return sum
+    }
+
+    var calorieprogress: Double {
         1.0 / Double(user.calorieGoal) * Double(calorieSum)
+    }
+    var carbohydrateProgress: Double {
+        1.0 / user.carbohydrateInGramGoal * carbohydrateSum
+    }
+    var proteinProgress: Double {
+        1.0 / user.proteinInGramGoal * proteinSum
+    }
+    var fatProgress: Double {
+        1.0 / user.fatInGramGoal * fatSum
     }
 
     var body: some View {
-        Text("\(greeting()), \(user.name)!")
-            .font(Fonts.dashboardGreeting)
-            .position(x: 150, y: 64)
-        VStack {
-            Text("Du hast heute")
-                .font(Fonts.dashboardCalorieText)
-            CircularProgressView(progress: progress, centerText: "\(calorieSum.formatted())\nkcal")
-            Text("zu dir genommen.")
-                .font(Fonts.dashboardCalorieText)
-                .multilineTextAlignment(.center)
+        ScrollView {
+            VStack {
+                Text("\(greeting()), \(user.name)!")
+                    .font(Fonts.dashboardGreeting)
+                    .position(x: 170, y: 32)
+                    CircularCalorieProgressView(
+                        progress: calorieprogress,
+                        centerText: "\(calorieSum.formatted())\nkcal"
+                    )
+                .position(x: 200, y: 200)
+                AllMacrosProgressView(carbohydrateProgress: carbohydrateProgress, carbohydrateSum: carbohydrateSum, proteinProgress: proteinProgress, proteinSum: proteinSum, fatProgress: fatProgress, fatSum: fatSum)
+                    .position(x: 200, y: 200)
+                Spacer()
+                    .padding(.bottom, 100)
+            }
         }
-        .position(x: 200, y: 0)
     }
-    
+
     func greeting(for date: Date = Date()) -> String {
         let hour = Calendar.current.component(.hour, from: date)
         switch hour {
@@ -130,6 +170,14 @@ struct DashboardView: View {
             type: .snack
         ),
     ]
-    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.86, weightInKilogram: 73.2, activityLevel: .medium, weightGoal: .maintain, diet: .veganRegular)
+    @Previewable @State var user: User = User(
+        name: "Rylie",
+        sex: .male,
+        heightInMeter: 1.46,
+        weightInKilogram: 63.2,
+        activityLevel: .medium,
+        weightGoal: .lose,
+        diet: .veganRegular
+    )
     DashboardView(entries: $entries, user: $user)
 }

@@ -18,4 +18,6 @@ struct Fonts {
     static let dashboardGreeting = Font.custom("Poppins-Medium", size: 20)
     static let dashboardCalorieText = Font.custom("Poppins-Medium", size: 32)
     static let dashboardCalories = Font.custom("Poppins-SemiBold", size: 44)
+    static let dashboardMacros = Font.custom("Poppins-Bold", size: 16)
+    static let dashboardMacrosTitle = Font.custom("Poppins-Medium", size: 16)
 }
