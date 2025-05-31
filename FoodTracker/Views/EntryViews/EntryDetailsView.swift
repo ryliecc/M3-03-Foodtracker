@@ -37,14 +37,19 @@ struct EntryDetailsView: View {
                         EntryCategoryView(entryType: entry.type)
                     }
                     VStack(spacing: 12) {
-                        Text("\(entry.carbohydrates.formattedGrams) Kohlenhydrate")
+                        Text(
+                            "Kohlenhydrate\n\(entry.carbohydrates.formattedGrams)"
+                        )
+                        .font(Fonts.entryDetailMacros)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color("CarbohydratePrimaryColor"))
+                        Text("Protein\n\(entry.protein.formattedGrams)")
                             .font(Fonts.entryDetailMacros)
-                            .foregroundColor(Color("CarbohydratePrimaryColor"))
-                        Text("\(entry.protein.formattedGrams) Protein")
-                            .font(Fonts.entryDetailMacros)
+                            .multilineTextAlignment(.center)
                             .foregroundColor(Color("ProteinPrimaryColor"))
-                        Text("\(entry.fat.formattedGrams) Fett")
+                        Text("Fett\n\(entry.fat.formattedGrams) ")
                             .font(Fonts.entryDetailMacros)
+                            .multilineTextAlignment(.center)
                             .foregroundColor(Color("FatPrimaryColor"))
                     }
                     .padding(.top, 8)
