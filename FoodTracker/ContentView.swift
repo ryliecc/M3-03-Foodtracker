@@ -27,7 +27,7 @@ struct ContentView: View {
             carbohydrates: 30,
             protein: 5.2,
             fat: 15,
-            type: .meal
+            type: .lunch
         ),
         Entry(
             title: "Rührtofu",
@@ -36,7 +36,7 @@ struct ContentView: View {
             carbohydrates: 4,
             protein: 23.6,
             fat: 35.3,
-            type: .meal
+            type: .breakfast
         ),
         Entry(
             title: "Pasta al Pesto",
@@ -45,7 +45,7 @@ struct ContentView: View {
             carbohydrates: 12,
             protein: 5.8,
             fat: 4.6,
-            type: .meal
+            type: .lunch
         ),
         Entry(
             title: "Club Mate",

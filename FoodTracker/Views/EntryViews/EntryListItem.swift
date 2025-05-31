@@ -59,7 +59,7 @@ struct EntryListItem: View {
         carbohydrates: 20,
         protein: 20,
         fat: 10,
-        type: .meal
+        type: .breakfast
     )
     EntryListItem(entry: entry)
 }

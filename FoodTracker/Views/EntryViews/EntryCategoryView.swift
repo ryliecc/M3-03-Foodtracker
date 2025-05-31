@@ -10,7 +10,11 @@ import SwiftUI
 struct EntryCategoryView: View {
     var categoryEmoji: String {
         switch entryType {
-        case .meal:
+        case .breakfast:
+            "🍝"
+        case .lunch:
+            "🍝"
+        case .dinner:
             "🍝"
         case .drink:
             "🥤"
@@ -21,7 +25,11 @@ struct EntryCategoryView: View {
     var entryType: EntryType
     var categoryColor: Color {
         switch entryType {
-        case .meal:
+        case .breakfast:
+            Color(.orange)
+        case .lunch:
+            Color(.orange)
+        case .dinner:
             Color(.orange)
         case .drink:
             Color(.blue)

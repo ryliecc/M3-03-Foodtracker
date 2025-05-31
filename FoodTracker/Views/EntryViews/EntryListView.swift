@@ -19,7 +19,9 @@ struct EntryListView: View {
         }
     }
 
-    var meals: [Entry] { filteredEntries.filter { $0.type == .meal } }
+    var breakfasts: [Entry] { filteredEntries.filter { $0.type == .breakfast } }
+    var lunches: [Entry] { filteredEntries.filter { $0.type == .lunch } }
+    var dinners: [Entry] { filteredEntries.filter { $0.type == .dinner } }
     var drinks: [Entry] { filteredEntries.filter { $0.type == .drink } }
     var snacks: [Entry] { filteredEntries.filter { $0.type == .snack } }
 
@@ -74,8 +76,18 @@ struct EntryListView: View {
                             selectedDate: $selectedDate
                         )
                         EntrySectionView(
-                            sectionTitle: "Mahlzeiten",
-                            sectionEntries: meals,
+                            sectionTitle: "Frühstück",
+                            sectionEntries: breakfasts,
+                            allEntries: $entries
+                        )
+                        EntrySectionView(
+                            sectionTitle: "Mittagessen",
+                            sectionEntries: lunches,
+                            allEntries: $entries
+                        )
+                        EntrySectionView(
+                            sectionTitle: "Abendessen",
+                            sectionEntries: dinners,
                             allEntries: $entries
                         )
                         EntrySectionView(
@@ -115,12 +127,12 @@ struct EntryListView: View {
         ),
         Entry(
             title: "Veganer Chicken Burger",
-            date: Date(),
+            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             calories: 473,
             carbohydrates: 30,
             protein: 5.2,
             fat: 15,
-            type: .meal
+            type: .lunch
         ),
         Entry(
             title: "Rührtofu",
@@ -129,7 +141,7 @@ struct EntryListView: View {
             carbohydrates: 4,
             protein: 23.6,
             fat: 35.3,
-            type: .meal
+            type: .breakfast
         ),
         Entry(
             title: "Pasta al Pesto",
@@ -138,7 +150,7 @@ struct EntryListView: View {
             carbohydrates: 12,
             protein: 5.8,
             fat: 4.6,
-            type: .meal
+            type: .lunch
         ),
         Entry(
             title: "Club Mate",
@@ -160,7 +172,7 @@ struct EntryListView: View {
         ),
         Entry(
             title: "Wasser",
-            date: Date(),
+            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             calories: 0,
             carbohydrates: 0,
             protein: 0,
@@ -169,7 +181,7 @@ struct EntryListView: View {
         ),
         Entry(
             title: "Studentenfutter",
-            date: Date(),
+            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             calories: 462,
             carbohydrates: 44.9,
             protein: 13.8,

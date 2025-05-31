@@ -73,7 +73,7 @@ struct EntryDetailsView: View {
         carbohydrates: 20,
         protein: 20,
         fat: 10,
-        type: .meal
+        type: .breakfast
     )
     EntryDetailsView(entry: entry)
 }

@@ -8,7 +8,9 @@
 import Foundation
 
 enum EntryType: String, CaseIterable {
-    case meal = "Mahlzeit"
+    case breakfast = "Frühstück"
+    case lunch = "Mittagessen"
+    case dinner = "Abendessen"
     case drink = "Getränk"
     case snack = "Snack"
 }
