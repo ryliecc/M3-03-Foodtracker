@@ -66,14 +66,21 @@ struct DashboardView: View {
             VStack {
                 Text("\(greeting()), \(user.name)!")
                     .font(Fonts.dashboardGreeting)
-                    .position(x: 170, y: 32)
-                    CircularCalorieProgressView(
-                        progress: calorieprogress,
-                        centerText: "\(calorieSum.formatted())\nkcal"
-                    )
+                    .position(x: 120, y: 32)
+                CircularCalorieProgressView(
+                    progress: calorieprogress,
+                    centerText: "\(calorieSum.formatted())\nkcal"
+                )
                 .position(x: 200, y: 200)
-                AllMacrosProgressView(carbohydrateProgress: carbohydrateProgress, carbohydrateSum: carbohydrateSum, proteinProgress: proteinProgress, proteinSum: proteinSum, fatProgress: fatProgress, fatSum: fatSum)
-                    .position(x: 200, y: 200)
+                AllMacrosProgressView(
+                    carbohydrateProgress: carbohydrateProgress,
+                    carbohydrateSum: carbohydrateSum,
+                    proteinProgress: proteinProgress,
+                    proteinSum: proteinSum,
+                    fatProgress: fatProgress,
+                    fatSum: fatSum
+                )
+                .position(x: 200, y: 200)
                 Spacer()
                     .padding(.bottom, 100)
             }
