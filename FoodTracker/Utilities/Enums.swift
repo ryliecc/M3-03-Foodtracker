@@ -24,7 +24,7 @@ enum Sex {
     case female
 }
 
-enum ActivityLevel: String {
+enum ActivityLevel: String, CaseIterable {
     case veryLow = "kaum Bewegung"
     case low = "leicht aktiv"
     case medium = "mäßig aktiv"
@@ -42,10 +42,10 @@ enum ActivityLevel: String {
     }
 }
 
-enum Weightgoal {
-    case maintain
-    case gain
-    case lose
+enum WeightGoal: String, CaseIterable {
+    case maintain = "Gewicht halten"
+    case gain = "Gewicht zunehmen"
+    case lose = "Gewicht verlieren"
     
     var calorieGoalAdjustment: Double {
         switch self {
@@ -56,7 +56,7 @@ enum Weightgoal {
     }
 }
 
-enum Diet: String {
+enum Diet: String, CaseIterable {
     case omnivore = "Omnivor"
     case highProtein = "High Protein"
     case lowCarb = "Low Carb"
@@ -99,4 +99,15 @@ enum Diet: String {
         case .paleo: 0.40
         }
     }
+}
+
+enum WeightCategory: String {
+    case severeUnderweight = "Starkes Untergewicht"
+    case moderateUnderweight = "Mäßiges Untergewicht"
+    case mildUnderweight = "Leichtes Untergewicht"
+    case normalWeight = "Normalgewicht"
+    case overweight = "Präadipositas"
+    case obesityClassI = "Adipositas Grad I"
+    case obesityClassIi = "Adipositas Grad II"
+    case obesityClassIii = "Adipositas Grad III"
 }

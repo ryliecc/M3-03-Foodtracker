@@ -14,6 +14,18 @@ struct User {
     var weightInKilogram: Double
     
     var bmi: Double { weightInKilogram / pow(heightInMeter, 2) }
+    var weightCategory: WeightCategory {
+        switch bmi {
+        case 0..<16.0: return .severeUnderweight
+        case 16.0..<17.0: return .moderateUnderweight
+        case 17.0..<18.5: return .mildUnderweight
+        case 18.5..<25.0: return .normalWeight
+        case 25.0..<30.0: return .overweight
+        case 30.0..<35.0: return .obesityClassI
+        case 35.0..<40.0: return .obesityClassIi
+        default: return .obesityClassIii
+        }
+    }
     var bmr: Int {
         switch sex {
         case .male: Int(weightInKilogram * 24)
@@ -22,7 +34,7 @@ struct User {
     }
     
     var activityLevel: ActivityLevel
-    var weightGoal: Weightgoal
+    var weightGoal: WeightGoal
     var calorieGoal: Int {
         let calorieRequirement: Int = Int(Double(bmr) * activityLevel.activityFactor)
         let goalAdjustment: Int = Int(Double(calorieRequirement) / 100 * weightGoal.calorieGoalAdjustment)
