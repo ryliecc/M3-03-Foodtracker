@@ -8,16 +8,27 @@
 import SwiftUI
 
 struct EntryFormView: View {
-    @State var sheetIsVisible: Bool = false
+    @State var sheetIsVisible: Bool = true
     @State var newEntryTitle: String = ""
     @State var newEntryDate: Date = Date()
     @State var newEntryCalories: Int = 0
+    @State var newEntryCarbohydrates: Double = 0.0
+    @State var newEntryProtein: Double = 0.0
+    @State var newEntryFat: Double = 0.0
     @State var carbohydratesText: String = ""
     @State var proteinText: String = ""
     @State var fatText: String = ""
     @State var newEntryType: EntryType = .breakfast
 
     @Binding var entries: [Entry]
+    
+    var calorieRange: [Int] {
+        Array(stride(from: 0, through: 3000, by: 1))
+    }
+    var macroRange: [Double] {
+        Array(stride(from: 0.0, through: 1000, by: 0.1))
+    }
+    
     var body: some View {
         VStack {
             Button {
@@ -50,13 +61,14 @@ struct EntryFormView: View {
                                 selection: $newEntryDate,
                                 displayedComponents: .date
                             )
-                            Stepper(
-                                value: $newEntryCalories,
-                                in: 0...2000,
-                                step: 10
-                            ) {
-                                Text("\(newEntryCalories) kcal")
+                            Picker("Kalorien", selection: $newEntryCalories) {
+                                ForEach(calorieRange, id: \.self) { calorie in
+                                    Text("\(calorie) kcal").tag(calorie)
+                                }
                             }
+                            .pickerStyle(.wheel)
+                            .frame(height: 80)
+                            .clipped()
                             Picker(
                                 "Kategorie auswählen",
                                 selection: $newEntryType
@@ -67,46 +79,58 @@ struct EntryFormView: View {
                                 }
                             }
                         }
-                        Section(header: Text("Makronährstoffe (in Gramm)")) {
-                            TextField("Kohlenhydrate", text: $carbohydratesText)
-                                .keyboardType(.decimalPad)
-                            TextField("Protein", text: $proteinText)
-                                .keyboardType(.decimalPad)
-                            TextField("Fett", text: $fatText)
-                                .keyboardType(.decimalPad)
+                        Section(header: Text("Makronährwerte")) {
+                            HStack {
+                                Text("Kohlenhydrate:")
+                                    .font(Fonts.entryTitle)
+                                    .foregroundColor(Color("CarbohydratePrimaryColor"))
+                                    .frame(width: 160, alignment: .leading)
+                                Picker("Kohlenhydrate", selection: $newEntryCarbohydrates) {
+                                    ForEach(macroRange, id: \.self) { macro in
+                                        Text(String(format: "%.1f g", macro))}
+                                }
+                                .pickerStyle(.wheel)
+                                .frame(width: 160, height: 80)
+                                .clipped()
+                            }
+                            HStack {
+                                Text("Protein:")
+                                    .font(Fonts.entryTitle)
+                                    .foregroundColor(Color("ProteinPrimaryColor"))
+                                    .frame(width: 160, alignment: .leading)
+                                Picker("Protein", selection: $newEntryProtein) {
+                                    ForEach(macroRange, id: \.self) { macro in
+                                        Text(String(format: "%.1f g", macro))}
+                                }
+                                .pickerStyle(.wheel)
+                                .frame(width: 160, height: 80)
+                                .clipped()
+                            }
+                            HStack {
+                                Text("Fett:")
+                                    .font(Fonts.entryTitle)
+                                    .foregroundColor(Color("FatPrimaryColor"))
+                                    .frame(width: 160, alignment: .leading)
+                                Picker("Fett", selection: $newEntryFat) {
+                                    ForEach(macroRange, id: \.self) { macro in
+                                        Text(String(format: "%.1f g", macro))}
+                                }
+                                .pickerStyle(.wheel)
+                                .frame(width: 160, height: 80)
+                                .clipped()
+                            }
                         }
-
                         Section {
                             Button("Hinzufügen") {
-                                let carbs =
-                                    Double(
-                                        carbohydratesText.replacingOccurrences(
-                                            of: ",",
-                                            with: "."
-                                        )
-                                    ) ?? 0
-                                let protein =
-                                    Double(
-                                        proteinText.replacingOccurrences(
-                                            of: ",",
-                                            with: "."
-                                        )
-                                    ) ?? 0
-                                let fat =
-                                    Double(
-                                        fatText.replacingOccurrences(
-                                            of: ",",
-                                            with: "."
-                                        )
-                                    ) ?? 0
+                                
 
                                 let newEntry = Entry(
                                     title: newEntryTitle,
                                     date: newEntryDate,
                                     calories: newEntryCalories,
-                                    carbohydrates: carbs,
-                                    protein: protein,
-                                    fat: fat,
+                                    carbohydrates: newEntryCarbohydrates,
+                                    protein: newEntryProtein,
+                                    fat: newEntryFat,
                                     type: newEntryType
                                 )
                                 entries.append(newEntry)

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, diet: .veganRegular)
-    @State private var selection: ViewSelection = .dashboard
+    @State private var selection: ViewSelection = .entryList
     @State var entries: [Entry] = [
         Entry(
             title: "Frühlingsrolle",
