@@ -70,41 +70,57 @@ struct EntryListView: View {
                         }
                     }
                     .padding()
-                    List {
-                        EntryListHeaderView(
-                            entries: $entries,
-                            selectedDate: $selectedDate
-                        )
-                        EntrySectionView(
-                            sectionTitle: "Frühstück",
-                            sectionEntries: breakfasts,
-                            allEntries: $entries
-                        )
-                        EntrySectionView(
-                            sectionTitle: "Mittagessen",
-                            sectionEntries: lunches,
-                            allEntries: $entries
-                        )
-                        EntrySectionView(
-                            sectionTitle: "Abendessen",
-                            sectionEntries: dinners,
-                            allEntries: $entries
-                        )
-                        EntrySectionView(
-                            sectionTitle: "Getränke",
-                            sectionEntries: drinks,
-                            allEntries: $entries
-                        )
-                        EntrySectionView(
-                            sectionTitle: "Snacks",
-                            sectionEntries: snacks,
-                            allEntries: $entries
-                        )
+                    if (breakfasts.count + lunches.count + dinners.count + drinks.count + snacks.count) > 0 {
+                        List {
+                            EntryListHeaderView(
+                                entries: $entries,
+                                selectedDate: $selectedDate
+                            )
+                            if breakfasts.count > 0 {
+                                EntrySectionView(
+                                    sectionTitle: "Frühstück",
+                                    sectionEntries: breakfasts,
+                                    allEntries: $entries
+                                )
+                            }
+                            if lunches.count > 0 {
+                                EntrySectionView(
+                                    sectionTitle: "Mittagessen",
+                                    sectionEntries: lunches,
+                                    allEntries: $entries
+                                )
+                            }
+                            if dinners.count > 0 {
+                                EntrySectionView(
+                                    sectionTitle: "Abendessen",
+                                    sectionEntries: dinners,
+                                    allEntries: $entries
+                                )
+                            }
+                            if drinks.count > 0 {
+                                EntrySectionView(
+                                    sectionTitle: "Getränke",
+                                    sectionEntries: drinks,
+                                    allEntries: $entries
+                                )
+                            }
+                            if snacks.count > 0 {
+                                EntrySectionView(
+                                    sectionTitle: "Snacks",
+                                    sectionEntries: snacks,
+                                    allEntries: $entries
+                                )
+                            }
+                            Spacer()
+                                .padding(.bottom, 32)
+                                .listRowSeparator(.hidden)
+                        }
+                        .listStyle(.plain)
+                    } else {
                         Spacer()
-                            .padding(.bottom, 32)
-                            .listRowSeparator(.hidden)
+                        Text("Noch keine Einträge ...")
+                        Spacer()
                     }
-                    .listStyle(.plain)
                 }
                 EntryFormView(entries: $entries)
                     .padding()
