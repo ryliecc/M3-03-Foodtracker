@@ -24,27 +24,73 @@ struct ProfileDetailsView: View {
                     .frame(width: 200, height: 60)
                     .position(x: 200, y: 48)
                 Grid(alignment: .top) {
-                    ProfileDetailsRowView(firstText: "Name:", secondText: user.name)
-                    ProfileDetailsRowView(firstText: "Dominierende Hormone:", secondText: (user.sex == .male ? "Testosteron" : "Östrogen"))
-                    ProfileDetailsRowView(firstText: "Größe:", secondText: user.heightInMeter.formattedMeters)
-                    ProfileDetailsRowView(firstText: "Gewicht:", secondText: user.weightInKilogram.formattedKilograms)
+                    ProfileDetailsRowView(
+                        firstText: "Name:",
+                        secondText: user.name
+                    )
+                    ProfileDetailsRowView(
+                        firstText: "Dominierende Hormone:",
+                        secondText: (user.sex == .male
+                            ? "Testosteron" : "Östrogen")
+                    )
+                    ProfileDetailsRowView(
+                        firstText: "Größe:",
+                        secondText: user.heightInMeter.formattedMeters
+                    )
+                    ProfileDetailsRowView(
+                        firstText: "Gewicht:",
+                        secondText: user.weightInKilogram.formattedKilograms
+                    )
                     Divider()
-                    ProfileDetailsRowView(firstText: "BMI:", secondText: "\(String(format: "%.1f", user.bmi)) (\(user.weightCategory.rawValue))")
-                    ProfileDetailsRowView(firstText: "Aktivitätslevel:", secondText: user.activityLevel.rawValue)
-                    ProfileDetailsRowView(firstText: "Kalorienziel:", secondText: "\(user.calorieGoal) kcal")
-                    ProfileDetailsRowView(firstText: "Ziel:", secondText: user.weightGoal.rawValue)
+                    ProfileDetailsRowView(
+                        firstText: "BMI:",
+                        secondText:
+                            "\(String(format: "%.1f", user.bmi)) (\(user.weightCategory.rawValue))"
+                    )
+                    ProfileDetailsRowView(
+                        firstText: "Aktivitätslevel:",
+                        secondText: user.activityLevel.rawValue
+                    )
+                    ProfileDetailsRowView(
+                        firstText: "Kalorienziel:",
+                        secondText: "\(user.calorieGoal) kcal"
+                    )
+                    .foregroundColor(Color("PrimaryColor"))
+                    ProfileDetailsRowView(
+                        firstText: "Ziel:",
+                        secondText: user.weightGoal.rawValue
+                    )
                     Divider()
-                    ProfileDetailsRowView(firstText: "Ernährungsform:", secondText: user.diet.rawValue)
-                    ProfileDetailsRowView(firstText: "Kohlenhydrate:", secondText: user.carbohydrateInGramGoal.formattedGrams)
-                    ProfileDetailsRowView(firstText: "Protein", secondText: user.proteinInGramGoal.formattedGrams)
-                    ProfileDetailsRowView(firstText: "Fett:", secondText: user.fatInGramGoal.formattedGrams)
-                        .padding(.bottom, 40)
+                    ProfileDetailsRowView(
+                        firstText: "Ernährungsform:",
+                        secondText: user.diet.rawValue
+                    )
+                    ProfileDetailsRowView(
+                        firstText: "Kohlenhydrate:",
+                        secondText: user.carbohydrateInGramGoal.formattedGrams
+                    )
+                    .foregroundColor(Color("CarbohydratePrimaryColor"))
+                    ProfileDetailsRowView(
+                        firstText: "Protein",
+                        secondText: user.proteinInGramGoal.formattedGrams
+                    )
+                    .foregroundColor(Color("ProteinPrimaryColor"))
+                    ProfileDetailsRowView(
+                        firstText: "Fett:",
+                        secondText: user.fatInGramGoal.formattedGrams
+                    )
+                    .foregroundColor(Color("FatPrimaryColor"))
+                    .padding(.bottom, 40)
                     Button("Bearbeiten") {
                         formIsVisible = true
                     }
                     .foregroundColor(Color("SecondaryColor"))
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 8).fill(Color("PrimaryColor")))
+                    .background(
+                        RoundedRectangle(cornerRadius: 8).fill(
+                            Color("PrimaryColor")
+                        )
+                    )
 
                 }
                 .frame(width: 300)

@@ -79,11 +79,19 @@ struct ProfileFormView: View {
             }
             Section("Ernährungsziele") {
                 Text("Kalorien: \(newUser.calorieGoal) kcal")
+                    .foregroundColor(Color("PrimaryColor"))
+                    .bold()
                 Text(
                     "Kohlenhydrate: \(newUser.carbohydrateInGramGoal.formattedGrams)"
                 )
+                .foregroundColor(Color("CarbohydratePrimaryColor"))
+                .bold()
                 Text("Protein: \(newUser.proteinInGramGoal.formattedGrams)")
+                    .foregroundColor(Color("ProteinPrimaryColor"))
+                    .bold()
                 Text("Fett: \(newUser.fatInGramGoal.formattedGrams)")
+                    .foregroundColor(Color("FatPrimaryColor"))
+                    .bold()
             }
             Section {
                 HStack {
