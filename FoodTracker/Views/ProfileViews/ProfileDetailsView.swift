@@ -53,7 +53,7 @@ struct ProfileDetailsView: View {
                     )
                     ProfileDetailsRowView(
                         firstText: "Kalorienziel:",
-                        secondText: "\(user.calorieGoal) kcal"
+                        secondText: "\(user.calorieGoal.formatted()) kcal"
                     )
                     .foregroundColor(Color("PrimaryColor"))
                     ProfileDetailsRowView(
