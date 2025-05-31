@@ -91,11 +91,28 @@ struct ProfileFormView: View {
                         newUser = user
                         formIsVisible = false
                     }
-                    Spacer()
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(
+                            Color("SecondaryColor")
+                        )
+                    )
+                    .foregroundColor(Color("PrimaryColor"))
                     Button("Speichern") {
                         user = newUser
                         formIsVisible = false
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(
+                            Color("PrimaryColor")
+                        )
+                    )
+                    .foregroundColor(Color("SecondaryColor"))
                 }
             }
         }
