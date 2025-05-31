@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var user: User = User(name: "Rylie", calorieGoal: 2000)
+    @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.86, weightInKilogram: 73.2, activityLevel: .medium, weightGoal: .maintain, diet: .veganRegular)
     @State private var selection: ViewSelection = .dashboard
     @State var entries: [Entry] = [
         Entry(
@@ -98,6 +98,7 @@ struct ContentView: View {
                     ProfileView(user: $user)
                 }
             }
+            .accentColor(Color("PrimaryColor"))
         }
     }
 }

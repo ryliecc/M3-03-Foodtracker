@@ -130,6 +130,6 @@ struct DashboardView: View {
             type: .snack
         ),
     ]
-    @Previewable @State var user = User(name: "Rylie", calorieGoal: 2000)
+    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.86, weightInKilogram: 73.2, activityLevel: .medium, weightGoal: .maintain, diet: .veganRegular)
     DashboardView(entries: $entries, user: $user)
 }

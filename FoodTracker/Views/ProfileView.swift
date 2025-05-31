@@ -18,13 +18,7 @@ struct ProfileView: View {
                     TextField("Name", text: $newUser.name)
                 }
                 Section("Kalorienziel") {
-                    Stepper(
-                        value: $newUser.calorieGoal,
-                        in: 0...10000,
-                        step: 10
-                    ) {
-                        Text("\(newUser.calorieGoal) kcal")
-                    }
+                    
                 }
                 Section {
                     HStack {
@@ -51,11 +45,11 @@ struct ProfileView: View {
     
     init(user: Binding<User>) {
         self._user = user
-        self.newUser = User(name: user.wrappedValue.name, calorieGoal: user.wrappedValue.calorieGoal)
+        self.newUser = User(name: user.wrappedValue.name, sex: user.wrappedValue.sex, heightInMeter: user.wrappedValue.heightInMeter, weightInKilogram: user.wrappedValue.weightInKilogram, activityLevel: user.wrappedValue.activityLevel, weightGoal: user.wrappedValue.weightGoal, diet: user.wrappedValue.diet)
     }
 }
 
 #Preview {
-    @Previewable @State var user = User(name: "Rylie", calorieGoal: 2000)
+    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.86, weightInKilogram: 73.2, activityLevel: .medium, weightGoal: .maintain, diet: .veganRegular)
     ProfileView(user: $user)
 }
