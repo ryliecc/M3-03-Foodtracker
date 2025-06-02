@@ -65,8 +65,9 @@ struct DashboardView: View {
         ScrollView {
             VStack {
                 Text("\(greeting()), \(user.name)!")
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .font(Fonts.dashboardGreeting)
-                    .position(x: 120, y: 32)
+                    .position(x: 230, y: 32)
                 CircularCalorieProgressView(
                     progress: calorieprogress,
                     centerText: "\(calorieSum.formatted())\nkcal"
