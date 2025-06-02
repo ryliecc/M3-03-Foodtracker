@@ -21,6 +21,4 @@ struct User {
     var carbohydrateInGramGoal: Double
     var proteinInGramGoal: Double
     var fatInGramGoal: Double
-    
-    var usesRecommendedSettings: Bool
 }

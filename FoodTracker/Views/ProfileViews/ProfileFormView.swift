@@ -15,13 +15,27 @@ struct ProfileFormView: View {
     @State var newUserWeight: Double
     @State var newUserWeightGoal: WeightGoal
     @State var newUserActivityLevel: ActivityLevel
-    @State var newUserCalorieGoal: Int
+    var newUserCalorieGoal: Int {
+        let calorieRequirement: Int = Int(
+            Double(bmr) * newUserActivityLevel.activityFactor
+        )
+        let goalAdjustment: Int = Int(
+            Double(calorieRequirement) / 100
+                * newUserWeightGoal.calorieGoalAdjustment
+        )
+        return calorieRequirement + goalAdjustment
+    }
     @State var newUserDiet: Diet
-    @State var newUserCarbohydrateGoal: Double
-    @State var newUserProteinGoal: Double
-    @State var newUserFatGoal: Double
+    var newUserCarbohydrateGoal: Double {
+        (Double(newUserCalorieGoal) * newUserDiet.carbohydratePercentage) / 4
+    }
+    var newUserProteinGoal: Double {
+        (Double(newUserCalorieGoal) * newUserDiet.carbohydratePercentage) / 4
+    }
+    var newUserFatGoal: Double {
+        (Double(newUserCalorieGoal) * newUserDiet.carbohydratePercentage) / 9
+    }
     @Binding var formIsVisible: Bool
-    @State var useRecommendedSettings: Bool
 
     var bmi: Double { newUserWeight / pow(newUserHeight, 2) }
     var weightCategory: WeightCategory {
@@ -108,7 +122,7 @@ struct ProfileFormView: View {
                     }
                 }
             }
-            ProfileFormGoalsView(useRecommendedSettings: $useRecommendedSettings, newUserCalorieGoal: $newUserCalorieGoal, bmr: bmr, newUserActivityLevel: $newUserActivityLevel, newUserWeightGoal: $newUserWeightGoal, newUserDiet: $newUserDiet, newUserCarbohydrateGoal: $newUserCarbohydrateGoal, newUserProteinGoal: $newUserProteinGoal, newUserFatGoal: $newUserFatGoal)
+            ProfileFormGoalsView(newUserCalorieGoal: newUserCalorieGoal, newUserCarbohydrateGoal: newUserCarbohydrateGoal, newUserProteinGoal: newUserProteinGoal, newUserFatGoal: newUserFatGoal)
             Section {
                 HStack {
                     Button("Abbrechen") {
@@ -136,7 +150,6 @@ struct ProfileFormView: View {
                         user.carbohydrateInGramGoal = newUserCarbohydrateGoal
                         user.proteinInGramGoal = newUserProteinGoal
                         user.fatInGramGoal = newUserFatGoal
-                        user.usesRecommendedSettings = useRecommendedSettings
                         formIsVisible = false
                     }
                     .frame(maxWidth: .infinity)
@@ -160,19 +173,14 @@ struct ProfileFormView: View {
         self.newUserSex = user.wrappedValue.sex
         self.newUserHeight = user.wrappedValue.heightInMeter
         self.newUserWeight = user.wrappedValue.weightInKilogram
-        self.newUserCalorieGoal = user.wrappedValue.calorieGoal
         self.newUserActivityLevel = user.wrappedValue.activityLevel
         self.newUserWeightGoal = user.wrappedValue.weightGoal
         self.newUserDiet = user.wrappedValue.diet
-        self.newUserCarbohydrateGoal = user.wrappedValue.carbohydrateInGramGoal
-        self.newUserProteinGoal = user.wrappedValue.proteinInGramGoal
-        self.newUserFatGoal = user.wrappedValue.fatInGramGoal
-        self.useRecommendedSettings = user.wrappedValue.usesRecommendedSettings
     }
 }
 
 #Preview {
-    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, calorieGoal: 2000, diet: .veganRegular, carbohydrateInGramGoal: 200.0, proteinInGramGoal: 100.0, fatInGramGoal: 50.0, usesRecommendedSettings: false)
+    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, calorieGoal: 2095, diet: .veganRegular, carbohydrateInGramGoal: 261.9, proteinInGramGoal: 130.9, fatInGramGoal: 58.2)
     @Previewable @State var formIsVisible: Bool = true
     ProfileFormView(user: $user, formIsVisible: $formIsVisible)
 }
