@@ -43,11 +43,6 @@ struct ProfileDetailsView: View {
                     )
                     Divider()
                     ProfileDetailsRowView(
-                        firstText: "BMI:",
-                        secondText:
-                            "\(String(format: "%.1f", user.bmi)) (\(user.weightCategory.rawValue))"
-                    )
-                    ProfileDetailsRowView(
                         firstText: "Aktivitätslevel:",
                         secondText: user.activityLevel.rawValue
                     )
@@ -102,15 +97,7 @@ struct ProfileDetailsView: View {
 }
 
 #Preview {
-    @Previewable @State var user: User = User(
-        name: "Rylie",
-        sex: .male,
-        heightInMeter: 1.64,
-        weightInKilogram: 63.2,
-        activityLevel: .low,
-        weightGoal: .maintain,
-        diet: .veganRegular
-    )
+    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, calorieGoal: 2000, diet: .veganRegular, carbohydrateInGramGoal: 200.0, proteinInGramGoal: 100.0, fatInGramGoal: 50.0, usesRecommendedSettings: false)
     @Previewable @State var formIsVisible: Bool = false
     ProfileDetailsView(user: $user, formIsVisible: $formIsVisible)
 }
