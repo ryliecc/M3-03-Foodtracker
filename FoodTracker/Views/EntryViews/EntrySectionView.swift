@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EntrySectionView: View {
+    @Environment(\.modelContext) var context
     var sectionTitle: String
     var sectionEntries: [Entry]
-    @Binding var allEntries: [Entry]
+    @Query var allEntries: [Entry]
 
     var body: some View {
         Section(sectionTitle.uppercased()) {
@@ -19,24 +21,12 @@ struct EntrySectionView: View {
                     .listRowSeparator(.hidden)
                     .swipeActions {
                         Button(role: .destructive) {
-                            if let index = allEntries.firstIndex(where: {
-                                $0.id == entry.id
-                            }) {
-                                allEntries.remove(at: index)
-                            }
+                            context.delete(entry)
                         } label: {
                             Label("Löschen", systemImage: "trash")
                         }
                         Button {
-                            allEntries.forEach { originalEntry in
-                                if originalEntry.title == entry.title {
-                                    if let index = allEntries.firstIndex(where: { $0.id == originalEntry.id}) {
-                                        var toggledEntry = Entry(title: allEntries[index].title, date: allEntries[index].date, calories: allEntries[index].calories, carbohydrates: allEntries[index].carbohydrates, protein: allEntries[index].protein, fat: allEntries[index].fat, type: allEntries[index].type, isFavorite: !allEntries[index].isFavorite)
-                                        allEntries.remove(at: index)
-                                        allEntries.append(toggledEntry)
-                                    }
-                                }
-                            }
+                            entry.isFavorite.toggle()
                         } label: {
                             Label(
                                 (entry.isFavorite ? "Entfavorisieren" : "Favorisieren"),
@@ -50,25 +40,7 @@ struct EntrySectionView: View {
 }
 
 #Preview {
-    @Previewable @State var entries: [Entry] = [
-        Entry(
-            title: "Frühlingsrolle",
-            date: Date(),
-            calories: 154,
-            carbohydrates: 16.9,
-            protein: 3.6,
-            fat: 5.7,
-            type: .snack
-        ),
-        Entry(
-            title: "Veganer Chicken Burger",
-            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
-            calories: 473,
-            carbohydrates: 30,
-            protein: 5.2,
-            fat: 15,
-            type: .lunch
-        ),
+    var sectionEntries: [Entry] = [
         Entry(
             title: "Rührtofu",
             date: Date(),
@@ -77,57 +49,10 @@ struct EntrySectionView: View {
             protein: 23.6,
             fat: 35.3,
             type: .breakfast
-        ),
-        Entry(
-            title: "Pasta al Pesto",
-            date: Date(),
-            calories: 236,
-            carbohydrates: 12,
-            protein: 5.8,
-            fat: 4.6,
-            type: .lunch
-        ),
-        Entry(
-            title: "Club Mate",
-            date: Date(),
-            calories: 140,
-            carbohydrates: 35,
-            protein: 0,
-            fat: 0,
-            type: .drink
-        ),
-        Entry(
-            title: "Laugenbrezel",
-            date: Date(),
-            calories: 269,
-            carbohydrates: 52,
-            protein: 9.8,
-            fat: 3.2,
-            type: .snack
-        ),
-        Entry(
-            title: "Wasser",
-            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
-            calories: 0,
-            carbohydrates: 0,
-            protein: 0,
-            fat: 0,
-            type: .drink
-        ),
-        Entry(
-            title: "Studentenfutter",
-            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
-            calories: 462,
-            carbohydrates: 44.9,
-            protein: 13.8,
-            fat: 29.4,
-            type: .snack
-        ),
+        )
     ]
-    var sectionEntries: [Entry] { entries.filter { $0.type == .breakfast } }
     EntrySectionView(
         sectionTitle: "Frühstück",
-        sectionEntries: sectionEntries,
-        allEntries: $entries
+        sectionEntries: sectionEntries
     )
 }

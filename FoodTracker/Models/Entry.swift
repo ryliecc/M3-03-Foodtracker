@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Entry: Identifiable {
-    var id: String = UUID().uuidString
+@Model
+class Entry: Identifiable {
     var title: String
     var date: Date
     var calories: Int

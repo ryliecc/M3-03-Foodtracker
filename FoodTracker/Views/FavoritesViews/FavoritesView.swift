@@ -5,10 +5,15 @@
 //  Created by Rylie Castell on 31.05.25.
 //
 
+import SwiftData
 import SwiftUI
 
 struct FavoritesView: View {
-    @Binding var entries: [Entry]
+    @Query(
+        filter: #Predicate<Entry> { entry in
+            entry.isFavorite
+        }
+    ) var entries: [Entry]
     var favoritesDictionary: [String: Entry] {
         var dictionary: [String: Entry] = [:]
         for entry in entries where entry.isFavorite {
@@ -26,8 +31,16 @@ struct FavoritesView: View {
     @State var chosenIndex: Int = 0
     let maxIndex = EntryType.allCases.count - 1
     @State var sheetIsVisible = false
-    @State var newEntry: Entry = Entry(title: "", date: Date(), calories: 0, carbohydrates: 0, protein: 0, fat: 0, type: .breakfast)
-    
+    @State var newEntry: Entry = Entry(
+        title: "",
+        date: Date(),
+        calories: 0,
+        carbohydrates: 0,
+        protein: 0,
+        fat: 0,
+        type: .breakfast
+    )
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -63,10 +76,22 @@ struct FavoritesView: View {
                             FavoritesListItemView(entry: entry)
                                 .swipeActions {
                                     Button {
-                                        newEntry = Entry(title: entry.title, date: Date(), calories: entry.calories, carbohydrates: entry.carbohydrates, protein: entry.protein, fat: entry.fat, type: entry.type, isFavorite: entry.isFavorite)
+                                        newEntry = Entry(
+                                            title: entry.title,
+                                            date: Date(),
+                                            calories: entry.calories,
+                                            carbohydrates: entry.carbohydrates,
+                                            protein: entry.protein,
+                                            fat: entry.fat,
+                                            type: entry.type,
+                                            isFavorite: entry.isFavorite
+                                        )
                                         sheetIsVisible = true
                                     } label: {
-                                        Label("Neuer Eintrag", systemImage: "plus.app")
+                                        Label(
+                                            "Neuer Eintrag",
+                                            systemImage: "plus.app"
+                                        )
                                     }
                                 }
                         }
@@ -80,93 +105,22 @@ struct FavoritesView: View {
                 }
             }
             .sheet(isPresented: $sheetIsVisible) {
-                EntryFormSheetView(sheetIsVisible: $sheetIsVisible, newEntryTitle: $newEntry.title, newEntryDate: $newEntry.date, newEntryCalories: $newEntry.calories, newEntryCarbohydrates: $newEntry.carbohydrates, newEntryProtein: $newEntry.protein, newEntryFat: $newEntry.fat, newEntryType: $newEntry.type, newEntryIsFavorite: $newEntry.isFavorite, entries: $entries)
+                EntryFormSheetView(
+                    sheetIsVisible: $sheetIsVisible,
+                    newEntryTitle: $newEntry.title,
+                    newEntryDate: $newEntry.date,
+                    newEntryCalories: $newEntry.calories,
+                    newEntryCarbohydrates: $newEntry.carbohydrates,
+                    newEntryProtein: $newEntry.protein,
+                    newEntryFat: $newEntry.fat,
+                    newEntryType: $newEntry.type,
+                    newEntryIsFavorite: $newEntry.isFavorite
+                )
             }
         }
     }
 }
 
 #Preview {
-    @Previewable @State var entries: [Entry] = [
-        Entry(
-            title: "Frühlingsrolle",
-            date: Date(),
-            calories: 154,
-            carbohydrates: 16.9,
-            protein: 3.6,
-            fat: 5.7,
-            type: .snack,
-            isFavorite: true
-        ),
-        Entry(
-            title: "Veganer Chicken Burger",
-            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
-            calories: 473,
-            carbohydrates: 30,
-            protein: 5.2,
-            fat: 15,
-            type: .lunch,
-            isFavorite: true
-        ),
-        Entry(
-            title: "Rührtofu",
-            date: Date(),
-            calories: 435,
-            carbohydrates: 4,
-            protein: 23.6,
-            fat: 35.3,
-            type: .breakfast,
-            isFavorite: true
-        ),
-        Entry(
-            title: "Pasta al Pesto",
-            date: Date(),
-            calories: 236,
-            carbohydrates: 12,
-            protein: 5.8,
-            fat: 4.6,
-            type: .lunch
-        ),
-        Entry(
-            title: "Club Mate",
-            date: Date(),
-            calories: 140,
-            carbohydrates: 35,
-            protein: 0,
-            fat: 0,
-            type: .drink,
-            isFavorite: true
-        ),
-        Entry(
-            title: "Laugenbrezel",
-            date: Date(),
-            calories: 269,
-            carbohydrates: 52,
-            protein: 9.8,
-            fat: 3.2,
-            type: .snack,
-            isFavorite: true
-        ),
-        Entry(
-            title: "Wasser",
-            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
-            calories: 0,
-            carbohydrates: 0,
-            protein: 0,
-            fat: 0,
-            type: .drink,
-            isFavorite: true
-        ),
-        Entry(
-            title: "Studentenfutter",
-            date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
-            calories: 462,
-            carbohydrates: 44.9,
-            protein: 13.8,
-            fat: 29.4,
-            type: .snack,
-            isFavorite: true
-        ),
-    ]
-    FavoritesView(entries: $entries)
+    FavoritesView()
 }

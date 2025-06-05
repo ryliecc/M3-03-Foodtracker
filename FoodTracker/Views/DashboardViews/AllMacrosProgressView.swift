@@ -25,11 +25,11 @@ struct AllMacrosProgressView: View {
 }
 
 #Preview {
-    var carbohydrateProgress = 0.75
-    var carbohydrateSum = 183.5
-    var proteinProgress = 1.25
-    var proteinSum = 198.0
-    var fatProgress = 0.35
-    var fatSum = 10.3
+    let carbohydrateProgress = 0.75
+    let carbohydrateSum = 183.5
+    let proteinProgress = 1.25
+    let proteinSum = 198.0
+    let fatProgress = 0.35
+    let fatSum = 10.3
     AllMacrosProgressView(carbohydrateProgress: carbohydrateProgress, carbohydrateSum: carbohydrateSum, proteinProgress: proteinProgress, proteinSum: proteinSum, fatProgress: fatProgress, fatSum: fatSum)
 }

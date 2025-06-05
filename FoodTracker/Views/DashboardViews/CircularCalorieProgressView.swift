@@ -53,7 +53,7 @@ struct CircularCalorieProgressView: View {
 }
 
 #Preview {
-    var progress = 1.1
-    var text = "1.043\nkcal"
+    let progress = 1.1
+    let text = "1.043\nkcal"
     CircularCalorieProgressView(progress: progress, centerText: text)
 }

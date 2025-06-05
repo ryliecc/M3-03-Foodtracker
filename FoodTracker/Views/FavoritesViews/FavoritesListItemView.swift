@@ -51,7 +51,7 @@ struct FavoritesListItemView: View {
 }
 
 #Preview {
-    var entry = Entry(
+    let entry = Entry(
         title: "Titel",
         date: Date(),
         calories: 100,

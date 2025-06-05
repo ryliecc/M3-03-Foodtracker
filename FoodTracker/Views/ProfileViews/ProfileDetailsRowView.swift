@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ProfileDetailsRowView: View {
-    var firstText: String
-    var secondText: String
+    let firstText: String
+    let secondText: String
     var body: some View {
         GridRow {
             Text(firstText)

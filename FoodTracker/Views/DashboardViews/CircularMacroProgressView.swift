@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CircularMacroProgressView: View {
-    var progress: Double
-    var sum: Double
-    var macro: String
+    let progress: Double
+    let sum: Double
+    let macro: String
     
     var primaryColor: Color {
         switch macro {
@@ -89,8 +89,8 @@ struct CircularMacroProgressView: View {
 }
 
 #Preview {
-    var progress: Double = 1.75
-    var sum: Double = 200.6
+    let progress: Double = 1.75
+    let sum: Double = 200.6
     CircularMacroProgressView(
         progress: progress,
         sum: sum,

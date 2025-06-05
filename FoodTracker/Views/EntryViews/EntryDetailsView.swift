@@ -76,7 +76,7 @@ struct EntryDetailsView: View {
 }
 
 #Preview {
-    var entry = Entry(
+    let entry = Entry(
         title: "Titel",
         date: Date(),
         calories: 100,
