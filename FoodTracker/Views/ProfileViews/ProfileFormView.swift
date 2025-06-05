@@ -138,7 +138,6 @@ struct ProfileFormView: View {
                     )
                     .foregroundColor(Color("PrimaryColor"))
                     Button("Speichern") {
-                        print("New Username: \(newUserName)")
                         user.name = newUserName
                         user.sex = newUserSex
                         user.heightInMeter = newUserHeight
