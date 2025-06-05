@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, calorieGoal: 2095, diet: .veganRegular, carbohydrateInGramGoal: 261.9, proteinInGramGoal: 130.9, fatInGramGoal: 58.2)
     @State private var selection: ViewSelection = .dashboard
     @State var entries: [Entry] = [
         Entry(
@@ -92,17 +91,26 @@ struct ContentView: View {
             HeaderView()
             TabView(selection: $selection) {
                 Tab("Dashboard", systemImage: "house.fill", value: .dashboard) {
-                    DashboardView(entries: $entries, user: $user)
+                    DashboardView(entries: $entries)
                 }
                 Tab("Einträge", systemImage: "list.bullet", value: .entryList) {
                     EntryListView(entries: $entries)
                 }
-                Tab("Favoriten", systemImage: "suit.heart.fill", value: .favorites) {
+                Tab(
+                    "Favoriten",
+                    systemImage: "suit.heart.fill",
+                    value: .favorites
+                ) {
                     FavoritesView(entries: $entries)
                 }
-                Tab("Profil", systemImage: "person.crop.circle.fill", value: .profile) {
-                    ProfileView(user: $user)
+                Tab(
+                    "Profil",
+                    systemImage: "person.crop.circle.fill",
+                    value: .profile
+                ) {
+                    ProfileView()
                 }
+
             }
             .accentColor(Color("PrimaryColor"))
         }

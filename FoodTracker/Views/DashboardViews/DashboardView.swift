@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct DashboardView: View {
+    @AppStorage("username") private var username: String = "Gast"
+    @AppStorage("caloriegoal") private var calorieGoal: Int = 2000
+    @AppStorage("carbgoal") private var carbohydrateGoal: Double = 200.0
+    @AppStorage("proteingoal") private var proteinGoal: Double = 100.0
+    @AppStorage("fatgoal") private var fatGoal: Double = 50.0
     @Binding var entries: [Entry]
-    @Binding var user: User
 
     var calorieSum: Int {
         var sum = 0
@@ -49,22 +53,22 @@ struct DashboardView: View {
     }
 
     var calorieprogress: Double {
-        1.0 / Double(user.calorieGoal) * Double(calorieSum)
+        1.0 / Double(calorieGoal) * Double(calorieSum)
     }
     var carbohydrateProgress: Double {
-        1.0 / user.carbohydrateInGramGoal * carbohydrateSum
+        1.0 / carbohydrateGoal * carbohydrateSum
     }
     var proteinProgress: Double {
-        1.0 / user.proteinInGramGoal * proteinSum
+        1.0 / proteinGoal * proteinSum
     }
     var fatProgress: Double {
-        1.0 / user.fatInGramGoal * fatSum
+        1.0 / fatGoal * fatSum
     }
 
     var body: some View {
         ScrollView {
             VStack {
-                Text("\(greeting()), \(user.name)!")
+                Text("\(greeting()), \(username)!")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(Fonts.dashboardGreeting)
                     .position(x: 230, y: 32)
@@ -178,6 +182,5 @@ struct DashboardView: View {
             type: .snack
         ),
     ]
-    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, calorieGoal: 2095, diet: .veganRegular, carbohydrateInGramGoal: 261.9, proteinInGramGoal: 130.9, fatInGramGoal: 58.2)
-    DashboardView(entries: $entries, user: $user)
+    DashboardView(entries: $entries)
 }

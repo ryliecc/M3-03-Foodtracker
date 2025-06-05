@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct ProfileFormView: View {
-    @Binding var user: User
-    @State var newUserName: String
-    @State var newUserSex: Sex
-    @State var newUserHeight: Double
-    @State var newUserWeight: Double
-    @State var newUserWeightGoal: WeightGoal
-    @State var newUserActivityLevel: ActivityLevel
+    @AppStorage("username") private var username: String = "Gast"
+    @AppStorage("sex") private var sex: String = "male"
+    @AppStorage("height") private var height: Double = 1.60
+    @AppStorage("weight") private var weight: Double = 50.0
+    @AppStorage("weightgoal") private var weightGoal: String = "Gewicht halten"
+    @AppStorage("activityLevel") private var activityLevel: String = "mäßig aktiv"
+    @AppStorage("caloriegoal") private var calorieGoal: Int = 2000
+    @AppStorage("diet") private var diet: String = "Omnivor"
+    @AppStorage("carbgoal") private var carbohydrateGoal: Double = 200.0
+    @AppStorage("proteingoal") private var proteinGoal: Double = 100.0
+    @AppStorage("fatgoal") private var fatGoal: Double = 50.0
+    @State var newUserName: String = ""
+    @State var newUserSex: Sex = .male
+    @State var newUserHeight: Double = 1.40
+    @State var newUserWeight: Double = 30.0
+    @State var newUserWeightGoal: WeightGoal = .maintain
+    @State var newUserActivityLevel: ActivityLevel = .medium
     var newUserCalorieGoal: Int {
         let calorieRequirement: Int = Int(
             Double(bmr) * newUserActivityLevel.activityFactor
@@ -25,7 +35,7 @@ struct ProfileFormView: View {
         )
         return calorieRequirement + goalAdjustment
     }
-    @State var newUserDiet: Diet
+    @State var newUserDiet: Diet = .omnivore
     var newUserCarbohydrateGoal: Double {
         (Double(newUserCalorieGoal) * newUserDiet.carbohydratePercentage) / 4
     }
@@ -138,17 +148,17 @@ struct ProfileFormView: View {
                     )
                     .foregroundColor(Color("PrimaryColor"))
                     Button("Speichern") {
-                        user.name = newUserName
-                        user.sex = newUserSex
-                        user.heightInMeter = newUserHeight
-                        user.weightInKilogram = newUserWeight
-                        user.weightGoal = newUserWeightGoal
-                        user.activityLevel = newUserActivityLevel
-                        user.calorieGoal = newUserCalorieGoal
-                        user.diet = newUserDiet
-                        user.carbohydrateInGramGoal = newUserCarbohydrateGoal
-                        user.proteinInGramGoal = newUserProteinGoal
-                        user.fatInGramGoal = newUserFatGoal
+                        username = newUserName
+                        sex = newUserSex.rawValue
+                        height = newUserHeight
+                        weight = newUserWeight
+                        weightGoal = newUserWeightGoal.rawValue
+                        activityLevel = newUserActivityLevel.rawValue
+                        calorieGoal = newUserCalorieGoal
+                        diet = newUserDiet.rawValue
+                        carbohydrateGoal = newUserCarbohydrateGoal
+                        proteinGoal = newUserProteinGoal
+                        fatGoal = newUserFatGoal
                         formIsVisible = false
                     }
                     .frame(maxWidth: .infinity)
@@ -163,23 +173,21 @@ struct ProfileFormView: View {
                 }
             }
         }
-    }
-
-    init(user: Binding<User>, formIsVisible: Binding<Bool>) {
-        self._user = user
-        self._formIsVisible = formIsVisible
-        self.newUserName = user.wrappedValue.name
-        self.newUserSex = user.wrappedValue.sex
-        self.newUserHeight = user.wrappedValue.heightInMeter
-        self.newUserWeight = user.wrappedValue.weightInKilogram
-        self.newUserActivityLevel = user.wrappedValue.activityLevel
-        self.newUserWeightGoal = user.wrappedValue.weightGoal
-        self.newUserDiet = user.wrappedValue.diet
+        .onAppear {
+            if newUserName == "" && newUserHeight == 1.40 && newUserWeight == 30.0 {
+                newUserName = username
+                newUserSex = Sex(rawValue: sex)!
+                newUserHeight = height
+                newUserWeight = weight
+                newUserWeightGoal = WeightGoal(rawValue: weightGoal)!
+                newUserActivityLevel = ActivityLevel(rawValue: activityLevel)!
+                newUserDiet = Diet(rawValue: diet)!
+            }
+        }
     }
 }
 
 #Preview {
-    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, calorieGoal: 2095, diet: .veganRegular, carbohydrateInGramGoal: 261.9, proteinInGramGoal: 130.9, fatInGramGoal: 58.2)
     @Previewable @State var formIsVisible: Bool = true
-    ProfileFormView(user: $user, formIsVisible: $formIsVisible)
+    ProfileFormView(formIsVisible: $formIsVisible)
 }

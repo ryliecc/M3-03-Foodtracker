@@ -22,9 +22,9 @@ enum ViewSelection {
     case profile
 }
 
-enum Sex {
-    case male
-    case female
+enum Sex: String, CaseIterable {
+    case male = "male"
+    case female = "female"
 }
 
 enum ActivityLevel: String, CaseIterable {

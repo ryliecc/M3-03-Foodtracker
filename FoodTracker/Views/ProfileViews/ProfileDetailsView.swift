@@ -8,7 +8,17 @@
 import SwiftUI
 
 struct ProfileDetailsView: View {
-    @Binding var user: User
+    @AppStorage("username") private var username: String = "Gast"
+    @AppStorage("sex") private var sex: String = "male"
+    @AppStorage("height") private var height: Double = 1.60
+    @AppStorage("weight") private var weight: Double = 50.0
+    @AppStorage("weightgoal") private var weightGoal: String = "Gewicht halten"
+    @AppStorage("activityLevel") private var activityLevel: String = "mäßig aktiv"
+    @AppStorage("caloriegoal") private var calorieGoal: Int = 2000
+    @AppStorage("diet") private var diet: String = "Omnivor"
+    @AppStorage("carbgoal") private var carbohydrateGoal: Double = 200.0
+    @AppStorage("proteingoal") private var proteinGoal: Double = 100.0
+    @AppStorage("fatgoal") private var fatGoal: Double = 50.0
     @Binding var formIsVisible: Bool
     var body: some View {
         ScrollView {
@@ -26,53 +36,53 @@ struct ProfileDetailsView: View {
                 Grid(alignment: .top) {
                     ProfileDetailsRowView(
                         firstText: "Name:",
-                        secondText: user.name
+                        secondText: username
                     )
                     ProfileDetailsRowView(
                         firstText: "Dominierende Hormone:",
-                        secondText: (user.sex == .male
+                        secondText: (sex == "male"
                             ? "Testosteron" : "Östrogen")
                     )
                     ProfileDetailsRowView(
                         firstText: "Größe:",
-                        secondText: user.heightInMeter.formattedMeters
+                        secondText: height.formattedMeters
                     )
                     ProfileDetailsRowView(
                         firstText: "Gewicht:",
-                        secondText: user.weightInKilogram.formattedKilograms
+                        secondText: weight.formattedKilograms
                     )
                     Divider()
                     ProfileDetailsRowView(
                         firstText: "Aktivitätslevel:",
-                        secondText: user.activityLevel.rawValue
+                        secondText: activityLevel
                     )
                     ProfileDetailsRowView(
                         firstText: "Kalorienziel:",
-                        secondText: "\(user.calorieGoal.formatted()) kcal"
+                        secondText: "\(calorieGoal.formatted()) kcal"
                     )
                     .foregroundColor(Color("PrimaryColor"))
                     ProfileDetailsRowView(
                         firstText: "Ziel:",
-                        secondText: user.weightGoal.rawValue
+                        secondText: weightGoal
                     )
                     Divider()
                     ProfileDetailsRowView(
                         firstText: "Ernährungsform:",
-                        secondText: user.diet.rawValue
+                        secondText: diet
                     )
                     ProfileDetailsRowView(
                         firstText: "Kohlenhydrate:",
-                        secondText: user.carbohydrateInGramGoal.formattedGrams
+                        secondText: carbohydrateGoal.formattedGrams
                     )
                     .foregroundColor(Color("CarbohydratePrimaryColor"))
                     ProfileDetailsRowView(
                         firstText: "Protein",
-                        secondText: user.proteinInGramGoal.formattedGrams
+                        secondText: proteinGoal.formattedGrams
                     )
                     .foregroundColor(Color("ProteinPrimaryColor"))
                     ProfileDetailsRowView(
                         firstText: "Fett:",
-                        secondText: user.fatInGramGoal.formattedGrams
+                        secondText: fatGoal.formattedGrams
                     )
                     .foregroundColor(Color("FatPrimaryColor"))
                     .padding(.bottom, 40)
@@ -97,7 +107,6 @@ struct ProfileDetailsView: View {
 }
 
 #Preview {
-    @Previewable @State var user: User = User(name: "Rylie", sex: .male, heightInMeter: 1.64, weightInKilogram: 63.5, activityLevel: .low, weightGoal: .maintain, calorieGoal: 2095, diet: .veganRegular, carbohydrateInGramGoal: 261.9, proteinInGramGoal: 130.9, fatInGramGoal: 58.2)
     @Previewable @State var formIsVisible: Bool = false
-    ProfileDetailsView(user: $user, formIsVisible: $formIsVisible)
+    ProfileDetailsView(formIsVisible: $formIsVisible)
 }
