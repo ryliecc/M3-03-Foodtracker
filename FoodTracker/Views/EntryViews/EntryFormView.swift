@@ -9,6 +9,14 @@ import SwiftUI
 
 struct EntryFormView: View {
     @State var sheetIsVisible: Bool = false
+    @State var emptyTitle: String = ""
+    @State var emptyDate: Date = Date()
+    @State var emptyCalories: Int = 0
+    @State var emptyCarbohydrates: Double = 0.0
+    @State var emptyProtein: Double = 0.0
+    @State var emptyFat: Double = 0.0
+    @State var emptyType: EntryType = .breakfast
+    @State var emptyIsFavorite: Bool = false
     
     var body: some View {
         VStack {
@@ -33,8 +41,7 @@ struct EntryFormView: View {
             )
             .shadow(radius: 8)
             .sheet(isPresented: $sheetIsVisible) {
-                @State var emptyEntry = Entry(title: "", date: Date(), calories: 0, carbohydrates: 0, protein: 0, fat: 0, type: .breakfast)
-                EntryFormSheetView(sheetIsVisible: $sheetIsVisible, newEntryTitle: $emptyEntry.title, newEntryDate: $emptyEntry.date, newEntryCalories: $emptyEntry.calories, newEntryCarbohydrates: $emptyEntry.carbohydrates, newEntryProtein: $emptyEntry.protein, newEntryFat: $emptyEntry.fat, newEntryType: $emptyEntry.type, newEntryIsFavorite: $emptyEntry.isFavorite)
+                EntryFormSheetView(sheetIsVisible: $sheetIsVisible, newEntryTitle: $emptyTitle, newEntryDate: $emptyDate, newEntryCalories: $emptyCalories, newEntryCarbohydrates: $emptyCarbohydrates, newEntryProtein: $emptyProtein, newEntryFat: $emptyFat, newEntryType: $emptyType, newEntryIsFavorite: $emptyIsFavorite)
             }
         }
     }
