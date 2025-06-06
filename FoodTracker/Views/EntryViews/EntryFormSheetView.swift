@@ -117,6 +117,9 @@ struct EntryFormSheetView: View {
                         context.insert(newEntry)
                         newEntryTitle = ""
                         newEntryCalories = 0
+                        newEntryCarbohydrates = 0.0
+                        newEntryProtein = 0.0
+                        newEntryFat = 0.0
                         newEntryType = .breakfast
                         sheetIsVisible = false
                     }
