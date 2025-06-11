@@ -27,7 +27,7 @@ struct OnboardingView: View {
                 .tag(1)
             }
             .tabViewStyle(.page)
-            .animation(.easeInOut, value: currentPage)
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
             HStack {
                 if currentPage >= 1 {
                     Button("Zurück") {
@@ -35,12 +35,7 @@ struct OnboardingView: View {
                     }
                 }
                 Button("Weiter") {
-                    if currentPage <= 0 {
-                        currentPage += 1
-                    } else {
-                        username = newUserName
-                        isFirstTimeUser = false
-                    }
+                    currentPage += 1
                 }
             }
         }
